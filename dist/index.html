@@ -6,7 +6,7 @@
     <title>Todo</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
@@ -15,7 +15,30 @@
 </head>
 <body>
     <div id="header">Todo List</div>
-    <div id="sidebar"></div>
+    <div id="sidebar">
+        <div class="general">
+            <div class="sidebar-entry">
+                <i class="bi bi-inbox-fill" style="color: lightblue;"></i>
+                <div class="inbox">inbox</div>
+            </div>
+            <div class="sidebar-entry">
+                <i class="bi bi-star-fill" style="color: gold;"></i>
+                <div class="today">today</div>
+            </div>
+            <div class="sidebar-entry">
+                <i class="bi bi-calendar-event" style="color: green;"></i>
+                <div class="upcoming">upcoming</div>
+            </div>
+            <div class="sidebar-entry">
+                <i class="bi bi-substack" style="color: red;"></i>
+                <div class="anytime">anytime</div>
+            </div>
+            <div class="sidebar-entry">
+                <i class="bi bi-archive-fill" style="color: brown;"></i>
+                <div class="archive">archive</div>
+            </div>
+        </div>
+    </div>
     <div id="content"></div>
 </body>
 </html>
