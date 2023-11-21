@@ -1,0 +1,1 @@
+(()=>{function e(e){var t;e.preventDefault(),console.log(e.target),t=e.target.innerHTML,document.querySelector("#content").innerHTML=t}document.querySelectorAll(".sidebar-entry").forEach((function(t){t.querySelector("a").addEventListener("click",e)}))})();
