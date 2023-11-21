@@ -1,5 +1,5 @@
 :root {
-    --tmp: white;
+    font-family: 'Open Sans', sans-serif;
 }
 
 body {
@@ -29,8 +29,12 @@ body {
 #sidebar {
     grid-row: 2 / 2;
     grid-column: 1 / 1;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(233, 233, 233);
     padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 #content {
