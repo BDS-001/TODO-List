@@ -1,5 +1,6 @@
 :root {
     font-family: 'Open Sans', sans-serif;
+    --hilight-sidebar: rgb(170, 170, 170);
 }
 
 body {

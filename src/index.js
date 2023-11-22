@@ -4,8 +4,8 @@ function changeView(view) {
 }
 
 function setNavEvents() {
-    const sidebar = document.querySelectorAll('.inbox-category')
-    sidebar.forEach(function(menu) {
+    const inbox = document.querySelectorAll('.inbox-category')
+    inbox.forEach(function(menu) {
         const link = menu.querySelector('a')
         link.addEventListener('click', getContent)
     })
@@ -26,8 +26,12 @@ function addProject(e) {
 }
 
 function hilightElement(e) {
+    const inbox = document.querySelectorAll('.inbox-category')
+    inbox.forEach(function(element) {
+        element.style.backgroundColor = 'inherit';
+    })
     const parent = e.target.parentNode;
-    parent.style.backgroundColor = 'green';
+    parent.style.backgroundColor = 'var(--hilight-sidebar)';
 }
 
 const initialPageLoad = (function() {
