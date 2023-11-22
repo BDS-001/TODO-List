@@ -4,7 +4,7 @@ function changeView(view) {
 }
 
 function setNavEvents() {
-    const sidebar = document.querySelectorAll('.sidebar-entry')
+    const sidebar = document.querySelectorAll('.inbox-category')
     sidebar.forEach(function(menu) {
         const link = menu.querySelector('a')
         link.addEventListener('click', getContent)
@@ -13,8 +13,8 @@ function setNavEvents() {
 
 function getContent(e) {
     e.preventDefault()
-    console.log(e.target)
     changeView(e.target.innerHTML)
+    hilightElement(e)
 }
 
 function addProjectClickEvent() {
@@ -23,6 +23,11 @@ function addProjectClickEvent() {
 }
 function addProject(e) {
     e.preventDefault() 
+}
+
+function hilightElement(e) {
+    const parent = e.target.parentNode;
+    parent.style.backgroundColor = 'green';
 }
 
 const initialPageLoad = (function() {

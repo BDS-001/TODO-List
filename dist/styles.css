@@ -31,6 +31,7 @@ body {
     grid-column: 1 / 1;
     background-color: rgb(233, 233, 233);
     padding: 40px;
+    padding-top: 5px;
 
     display: flex;
     flex-direction: column;
@@ -42,15 +43,15 @@ body {
     grid-column: 2 / 2;
 }
 
-.sidebar-entry {
+.inbox-category {
     display: grid;
     grid-template-columns: 40px 1fr;
-}
 
-.sidebar-entry>i,
-.sidebar-entry>div {
     font-size: 25px;
     text-shadow: 0 0 0px #000;
+    border-radius: 8px;
+    padding: 5px;
+    padding-left: 10px;
 }
 
 #sidebar a {
