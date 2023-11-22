@@ -17,4 +17,15 @@ function getContent(e) {
     changeView(e.target.innerHTML)
 }
 
-setNavEvents()
+function addProjectClickEvent() {
+    const addProjectButton = document.querySelector('#add-project')
+    addProjectButton.addEventListener('click', addProject)
+}
+function addProject(e) {
+    e.preventDefault() 
+}
+
+const initialPageLoad = (function() {
+    setNavEvents()
+    addProjectClickEvent()
+})();
