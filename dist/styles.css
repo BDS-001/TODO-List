@@ -44,7 +44,7 @@ body {
     grid-column: 2 / 2;
 }
 
-.inbox-category {
+.sidebar-element {
     display: grid;
     grid-template-columns: 40px 1fr;
 
