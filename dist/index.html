@@ -44,6 +44,23 @@
                 <h1>Projects</h2>
                 <a href="" id="add-project">+</a>
             </div>
+
+            <div id="modalOverlay" class="overlay">
+                <div id="myModal" class="modal">
+                    <span class="close-btn">&#10006;</span>
+                    <h2>Enter Project Information</h2>
+                    <form id="projectForm">
+                        <label for="projectName">Project Name:</label>
+                        <input type="text" id="projectName" name="projectName" required>
+                        <br><br>
+                        <label for="additionalData">Additional Data:</label>
+                        <textarea id="additionalData" name="additionalData" rows="4" required></textarea>
+                        <br><br>
+                        <button type="button">Submit</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
     <div id="content"></div>

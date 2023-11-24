@@ -1,3 +1,5 @@
+import { openModal, closeModal } from "./add-project-modal"
+
 function changeView(view) {
     const content = document.querySelector('#content')
     content.innerHTML = view
@@ -22,7 +24,13 @@ function addProjectClickEvent() {
     addProjectButton.addEventListener('click', addProject)
 }
 function addProject(e) {
-    e.preventDefault() 
+    e.preventDefault()
+    openModal()
+}
+
+function closeModalEventListener() {
+    const closeButton = document.querySelector('.close-btn')
+    closeButton.addEventListener('click', closeModal)
 }
 
 function hilightElement(e) {
@@ -37,4 +45,5 @@ function hilightElement(e) {
 const initialPageLoad = (function() {
     setNavEvents()
     addProjectClickEvent()
+    closeModalEventListener()
 })();
