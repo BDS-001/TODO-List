@@ -20,20 +20,6 @@ function getContent(e) {
     hilightElement(e)
 }
 
-function addProjectClickEvent() {
-    const addProjectButton = document.querySelector('#add-project')
-    addProjectButton.addEventListener('click', addProject)
-}
-function addProject(e) {
-    e.preventDefault()
-    openModal()
-}
-
-function closeModalEventListener() {
-    const closeButton = document.querySelector('.close-btn')
-    closeButton.addEventListener('click', closeModal)
-}
-
 function hilightElement(e) {
     const inbox = document.querySelectorAll('.inbox-category')
     inbox.forEach(function(element) {
@@ -43,8 +29,31 @@ function hilightElement(e) {
     parent.style.backgroundColor = 'var(--hilight-sidebar)';
 }
 
+const projectsTab = (function() {
+    function addProject(e) {
+        e.preventDefault()
+        openModal()
+    }
+
+    function addProjectClickEvent() {
+        const addProjectButton = document.querySelector('#add-project')
+        addProjectButton.addEventListener('click', addProject)
+    }
+    
+    function closeModalEventListener() {
+        const closeButton = document.querySelector('.close-btn')
+        closeButton.addEventListener('click', closeModal)
+    }
+
+    function setup() {
+        addProjectClickEvent()
+        closeModalEventListener()
+    }
+
+    return {setup}
+})();
+
 const initialPageLoad = (function() {
     setNavEvents()
-    addProjectClickEvent()
-    closeModalEventListener()
+    projectsTab.setup()
 })();
