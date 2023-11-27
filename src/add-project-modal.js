@@ -9,8 +9,8 @@ export function closeModal() {
 }
 
 export function submitForm() {
-    var projectName = document.getElementById("projectName").value;
-    var additionalData = document.getElementById("additionalData").value;
-    alert("Project Name: " + projectName + "\nAdditional Data: " + additionalData);
+    let projectName = document.getElementById("projectName").value;
+    let desc = document.getElementById("projectDescription").value;
+    alert("Project Name: " + projectName + "\nDescription " + desc);
     closeModal();
 }

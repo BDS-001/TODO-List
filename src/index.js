@@ -1,4 +1,5 @@
 import { openModal, closeModal } from "./add-project-modal"
+import { Project, Task } from "./projects"
 
 function changeView(view) {
     const content = document.querySelector('#content')

@@ -1,4 +1,4 @@
-class Project {
+export class Project {
     constructor(name, desc) {
         this.name = name
         this.desc = desc
@@ -47,7 +47,7 @@ class Project {
       }
 }
 
-class Task {
+export class Task {
     constructor(id, title, desc, date, project) {
         this.id = id
         this.title = title
