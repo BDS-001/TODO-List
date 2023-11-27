@@ -1,7 +1,7 @@
 class Project {
-    constructor(name, data) {
+    constructor(name, desc) {
         this.name = name
-        this.data = data
+        this.desc = desc
         this.tasks = []
     }
 
@@ -22,7 +22,16 @@ class Project {
       }
     
       generateUniqueId() {
-        return '_' + Math.random().toString(36).substr(2, 9);
+          // Generate a random number and convert it to a hexadecimal string
+          const randomPart = Math.floor(Math.random() * Date.now()).toString(16);
+
+          // Use the current timestamp to ensure uniqueness
+          const timestampPart = new Date().getTime().toString(16);
+
+          // Concatenate the random and timestamp parts
+          const uniqueId = randomPart + timestampPart;
+
+          return uniqueId;
       }
     
       findTaskById(taskId) {
@@ -43,7 +52,7 @@ class Task {
         this.id = id
         this.title = title
         this.desc = desc
-        this.date = date
+        this.date = Date.now()
         this.project = project
         this.completed = false
     }
