@@ -1,7 +1,7 @@
 :root {
     font-family: 'Open Sans', sans-serif;
-    --hilight-sidebar: rgb(170, 170, 170);
-    color: black;
+    --hilight-sidebar: rgba(255, 255, 255, 0.171);
+    color: whitesmoke;
 }
 
 body {
@@ -23,7 +23,6 @@ body {
     justify-content: center;
     align-items: center;
 
-    color: whitesmoke;
     font-size: 70px;
     font-family: 'Satisfy', cursive;
 }
@@ -31,7 +30,7 @@ body {
 #sidebar {
     grid-row: 2 / 2;
     grid-column: 1 / 1;
-    background-color: rgb(233, 233, 233);
+    background-color: #161b22;
     padding: 40px;
     padding-top: 5px;
 
@@ -43,6 +42,7 @@ body {
 #content {
     grid-row: 2 / 2;
     grid-column: 2 / 2;
+    background-color: #0d1117;
 }
 
 .sidebar-element {
@@ -58,7 +58,7 @@ body {
 
 #sidebar a {
     text-decoration: none;
-    color: black;
+    color: whitesmoke;
 }
 
 #add-project {
@@ -82,6 +82,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    color: black;
 }
 
 .overlay {
