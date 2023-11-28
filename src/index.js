@@ -1,5 +1,4 @@
-import { openModal, closeModal } from "./add-project-modal"
-import { Project, Task } from "./projects"
+import { openModal, closeModal, submitForm } from "./add-project-modal"
 
 const navigation = (function() {
     function changeView(view) {
@@ -49,9 +48,15 @@ const projectsTab = (function() {
         closeButton.addEventListener('click', closeModal)
     }
 
+    function submitProject() {
+        const submitProjectButton = document.querySelector('#submit-project')
+        submitProjectButton.addEventListener('click', submitForm)
+    }
+
     function setup() {
         addProjectClickEvent()
         closeModalEventListener()
+        submitProject()
     }
 
     return {setup}
