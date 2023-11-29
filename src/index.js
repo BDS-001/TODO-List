@@ -1,4 +1,5 @@
 import { openModal, closeModal, submitForm } from "./add-project-modal"
+import { hilight } from "./hilight";
 
 const navigation = (function() {
     function changeView(view) {
@@ -9,16 +10,7 @@ const navigation = (function() {
     function getContent(e) {
         e.preventDefault()
         changeView(e.target.innerHTML)
-        hilightElement(e)
-    }
-    
-    function hilightElement(e) {
-        const inbox = document.querySelectorAll('.inbox-category')
-        inbox.forEach(function(element) {
-            element.style.backgroundColor = 'inherit';
-        })
-        const parent = e.target.parentNode;
-        parent.style.backgroundColor = 'var(--hilight-sidebar)';
+        hilight.hilightElement(e)
     }
 
     function setup() {
