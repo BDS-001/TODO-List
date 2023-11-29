@@ -50,7 +50,7 @@ export class Project {
 }
 
 export class Task {
-    constructor(id, title, desc, date, project) {
+    constructor(id, title, desc, project) {
         this.id = id
         this.title = title
         this.desc = desc

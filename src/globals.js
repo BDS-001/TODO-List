@@ -1,0 +1,1 @@
+export const projectsContainer = document.querySelector('.projects')
