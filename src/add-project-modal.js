@@ -29,6 +29,7 @@ function buildProject(name) {
 
     const projectName = document.createElement('a')
     projectName.innerHTML = name
+    projectName.setAttribute('href', '')
 
     container.append(icon)
     container.append(projectName)

@@ -1,23 +1,13 @@
 import { openModal, closeModal, submitForm } from "./add-project-modal"
-import { hilight } from "./hilight";
+import { navigation } from "./navigation";
 
-const navigation = (function() {
-    function changeView(view) {
-        const content = document.querySelector('#content')
-        content.innerHTML = view
-    }
-    
-    function getContent(e) {
-        e.preventDefault()
-        changeView(e.target.innerHTML)
-        hilight.hilightElement(e)
-    }
+const inboxTab = (function() {
 
     function setup() {
         const inbox = document.querySelectorAll('.inbox-category')
         inbox.forEach(function(menu) {
             const link = menu.querySelector('a')
-            link.addEventListener('click', getContent)
+            navigation.addNavigationClickEvent(link)
         })
     }
 
@@ -55,6 +45,6 @@ const projectsTab = (function() {
 })();
 
 const initialPageLoad = (function() {
-    navigation.setup()
+    inboxTab.setup()
     projectsTab.setup()
 })();
