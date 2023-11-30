@@ -61,7 +61,6 @@ const addProjectModal = (function() {
 
 //module to setup the inbox tab
 const inboxTab = (function() {
-
     function setup() {
         const inbox = document.querySelectorAll('.inbox-category')
         inbox.forEach(function(menu) {
