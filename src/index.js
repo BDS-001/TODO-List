@@ -2,7 +2,7 @@ import { navigation } from "./navigation";
 import { Project, Task, projectsList } from "./projects"
 import { projectsContainer } from "./globals";
 
-
+//module to control the add project modal
 const addProjectModal = (function() {
     function openModal() {
         document.getElementById("modalOverlay").style.display = "block";
@@ -14,7 +14,7 @@ const addProjectModal = (function() {
         document.getElementById("myModal").style.display = "none";
     }
     
-    function submitForm() {
+    function submitProject() {
         let projectName = document.getElementById("projectName").value;
         let desc = document.getElementById("projectDescription").value;
         
@@ -41,10 +41,25 @@ const addProjectModal = (function() {
         projectsContainer.append(container)
     }
 
-    return { openModal, closeModal, submitForm }
-})()
+    function closeModalEventListener() {
+        const closeButton = document.querySelector('.close-btn')
+        closeButton.addEventListener('click', closeModal)
+    }
 
+    function submitProjectEventListener() {
+        const submitProjectButton = document.querySelector('#submit-project')
+        submitProjectButton.addEventListener('click', submitProject)
+    }
 
+    function setup() {
+        closeModalEventListener()
+        submitProjectEventListener()
+    }
+
+    return { openModal, setup}
+})();
+
+//module to setup the inbox tab
 const inboxTab = (function() {
 
     function setup() {
@@ -58,6 +73,7 @@ const inboxTab = (function() {
     return {setup}
 })();
 
+//module to setup projects tab
 const projectsTab = (function() {
     function addProject(e) {
         e.preventDefault()
@@ -68,28 +84,17 @@ const projectsTab = (function() {
         const addProjectButton = document.querySelector('#add-project')
         addProjectButton.addEventListener('click', addProject)
     }
-    
-    function closeModalEventListener() {
-        const closeButton = document.querySelector('.close-btn')
-        closeButton.addEventListener('click', addProjectModal.closeModal)
-    }
-
-    function submitProject() {
-        const submitProjectButton = document.querySelector('#submit-project')
-        submitProjectButton.addEventListener('click', addProjectModal.submitForm)
-    }
 
     function setup() {
         addProjectClickEvent()
-        closeModalEventListener()
-        submitProject()
     }
 
     return {setup}
 })();
 
-
+//setup webpage on startup
 const initialPageLoad = (function() {
     inboxTab.setup()
     projectsTab.setup()
+    addProjectModal.setup()
 })();
