@@ -12,6 +12,7 @@ const addProjectModal = (function() {
     function closeModal() {
         document.getElementById("modalOverlay").style.display = "none";
         document.getElementById("myModal").style.display = "none";
+        clearForm()
     }
     
     function submitProject() {
@@ -21,6 +22,7 @@ const addProjectModal = (function() {
         buildProject(projectName)
         projectsList.push(new Project(projectName, desc))
         closeModal();
+        clearForm()
     }
     
     function buildProject(name) {
@@ -51,9 +53,18 @@ const addProjectModal = (function() {
         submitProjectButton.addEventListener('click', submitProject)
     }
 
+    function clearForm() {
+        const inputs = document.querySelectorAll('.modal-data')
+        console.log(inputs)
+        inputs.forEach(function(formInput) {
+            formInput.value = ''
+        })
+    }
+
     function setup() {
         closeModalEventListener()
         submitProjectEventListener()
+        clearForm()
     }
 
     return { openModal, setup}
