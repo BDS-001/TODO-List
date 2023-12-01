@@ -33,12 +33,12 @@ const addProjectModal = (function() {
     
         const projectName = document.createElement('a')
         projectName.innerHTML = name
-        projectName.setAttribute('href', '')
+        projectName.setAttribute('href', 'javascript:;')
         navigation.addNavigationClickEvent(projectName)
+        projectName.dataset.title = name
     
         container.append(icon)
         container.append(projectName)
-    
         projectsContainer.append(container)
     }
 

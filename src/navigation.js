@@ -11,12 +11,12 @@
         const content = document.querySelector('#content')
         
         //tmp for testing
-        content.innerHTML = view
+        content.innerHTML = view.dataset.title
     }
     
     function changeView(e) {
         e.preventDefault()
-        getContent(e.target.innerHTML)
+        getContent(e.target)
         hilightElement(e)
     }
 
