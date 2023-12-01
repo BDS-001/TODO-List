@@ -1,3 +1,4 @@
+import { projectsList } from "./projects";
 import { pageContent } from "./globals";
 
 export const navigation = (function() {
@@ -11,7 +12,7 @@ export const navigation = (function() {
     
     function changeView(e) {
         e.preventDefault()
-        contentFilter.getContent(e.target.innerHTML)
+        contentFilter.getContent(e.target)
         hilightElement(e)
     }
 
@@ -24,9 +25,11 @@ export const navigation = (function() {
  })();
 
  export const contentFilter = (function() {
-    function getContent(view) {
+    function getContent(target) {
         //tmp for testing
-        pageContent.innerHTML = view
+        pageContent.innerHTML = target.innerHTML
+        const currentProject = findProject(target)
+        console.log(currentProject)
     }
 
     function getTasks(project) {
@@ -36,6 +39,13 @@ export const navigation = (function() {
           taskDiv.textContent = `Task ID: ${task.id}, Description: ${task.description}, Date: ${task.date}, Completed: ${task.completed}`;
           contentDiv.appendChild(taskDiv);
         });
+      }
+
+      function findProject(target) {
+        const targetId = target.dataset.projectId
+        if (targetId) {
+            return projectsList.filter(project => project.id === targetId)[0]
+        }
       }
 
       return { getContent }
