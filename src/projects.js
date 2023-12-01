@@ -4,6 +4,7 @@ export class Project {
     constructor(name, desc) {
         this.name = name
         this.desc = desc
+        this.id = this.generateUniqueId()
         this.tasks = []
     }
 

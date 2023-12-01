@@ -1,4 +1,4 @@
-import { navigation } from "./navigation";
+import { navigation } from "./content-control";
 import { Project, Task, projectsList } from "./projects"
 import { projectsContainer } from "./globals";
 
@@ -19,12 +19,13 @@ const addProjectModal = (function() {
         let projectName = document.getElementById("projectName").value;
         let desc = document.getElementById("projectDescription").value;
         
-        buildProject(projectName)
-        projectsList.push(new Project(projectName, desc))
+        const newProject = new Project(projectName, desc) 
+        buildProject(newProject)
+        projectsList.push(newProject)
         closeModal();
     }
     
-    function buildProject(name) {
+    function buildProject(project) {
         const container = document.createElement('div')
         container.className = 'sidebar-element'
     
@@ -32,10 +33,11 @@ const addProjectModal = (function() {
         icon.className = 'bi bi-dot'
     
         const projectName = document.createElement('a')
-        projectName.innerHTML = name
+        projectName.innerHTML = project.name
         projectName.setAttribute('href', 'javascript:;')
         navigation.addNavigationClickEvent(projectName)
-        projectName.dataset.title = name
+        projectName.dataset.title = project.name
+        projectName.dataset.projectId = project.id
     
         container.append(icon)
         container.append(projectName)
