@@ -22,7 +22,6 @@ const addProjectModal = (function() {
         buildProject(projectName)
         projectsList.push(new Project(projectName, desc))
         closeModal();
-        clearForm()
     }
     
     function buildProject(name) {
