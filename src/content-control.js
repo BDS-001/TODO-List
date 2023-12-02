@@ -41,8 +41,7 @@ export const navigation = (function() {
     }
 
     function projectContent(target, project) {
-        const taskButton = document.createElement('button')
-        
+        addTaskButton()
         //tmp
         project.addTask('first task', 'we need to finish this')
         project.addTask('second task', 'call cleints and confirm something')
@@ -50,7 +49,10 @@ export const navigation = (function() {
     }
 
     function addTaskButton() {
-
+        const addTask = document.createElement('button')
+        addTask.id = 'add-task'
+        addTask.innerHTML = 'Add Task'
+        pageContent.append(addTask)
     }
 
     function getTasks(project) {

@@ -6,12 +6,12 @@ import { projectsContainer } from "./globals";
 const addProjectModal = (function() {
     function openModal() {
         document.getElementById("modalOverlay").style.display = "block";
-        document.getElementById("myModal").style.display = "block";
+        document.getElementById("projectModal").style.display = "block";
     }
     
     function closeModal() {
         document.getElementById("modalOverlay").style.display = "none";
-        document.getElementById("myModal").style.display = "none";
+        document.getElementById("projectModal").style.display = "none";
         clearForm()
     }
     

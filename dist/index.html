@@ -46,7 +46,9 @@
             </div>
 
             <div id="modalOverlay" class="overlay">
-                <div id="myModal" class="modal">
+
+                <!-- project modal -->
+                <div id="projectModal" class="modal">
                     <span class="close-btn">&#10006;</span>
                     <h2>Enter Project Information</h2>
                     <form id="projectForm">
@@ -61,6 +63,20 @@
                 </div>
             </div>
             
+            <!-- task modal -->
+            <div id="taskModal" class="modal">
+                <span class="close-btn">&#10006;</span>
+                <h2>Enter Task Information</h2>
+                <form id="taskForm">
+                    <label for="taskName">Task Name:</label>
+                    <input type="text" id="taskName" name="taskName"  class="modal-data" required>
+                    <br><br>
+                    <label for="taskDescription">Task Description:</label>
+                    <textarea id="taskDescription" name="taskDescription" rows="4" class="modal-data" required></textarea>
+                    <br><br>
+                    <button type="button" id="submit-task">Submit</button>
+                </form>
+            </div>
 
         </div>
     </div>
