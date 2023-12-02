@@ -8,9 +8,9 @@ export class Project {
         this.tasks = []
     }
 
-    addTask(title, desc, date, project) {
+    addTask(title, desc) {
         const taskId = this.generateUniqueId();
-        const task = new Task(taskId, title, desc, date, project);
+        const task = new Task(taskId, title, desc, this.name);
         this.tasks.push(task);
         return task;
       }

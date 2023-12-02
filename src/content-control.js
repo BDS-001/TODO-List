@@ -26,16 +26,38 @@ export const navigation = (function() {
 
  export const contentFilter = (function() {
     function getContent(target) {
-        pageContent.innerHTML = target.innerHTML
+        pageContent.innerHTML = target.dataset.title
+
         const currentProject = findProject(target)
-        if (currentProject) getTasks(currentProject);
+        if (currentProject) {
+            projectContent(target, currentProject);
+        } else {
+            inboxContent(target)
+        }
+    }
+
+    function inboxContent(target) {
+        //tmp
+    }
+
+    function projectContent(target, project) {
+        const taskButton = document.createElement('button')
+        
+        //tmp
+        project.addTask('first task', 'we need to finish this')
+        project.addTask('second task', 'call cleints and confirm something')
+        getTasks(project)
+    }
+
+    function addTaskButton() {
+
     }
 
     function getTasks(project) {
         const tasks = project.getInProgressTasks();
         tasks.forEach(task => {
           const taskDiv = document.createElement('div');
-          taskDiv.textContent = `Task ID: ${task.id}, Description: ${task.description}, Date: ${task.date}, Completed: ${task.completed}`;
+          taskDiv.textContent = `Task: ${task.title}, Description: ${task.desc}, Date: ${task.date}, Completed: ${task.completed}`;
           pageContent.appendChild(taskDiv);
         });
       }
