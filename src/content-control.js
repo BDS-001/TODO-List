@@ -26,10 +26,9 @@ export const navigation = (function() {
 
  export const contentFilter = (function() {
     function getContent(target) {
-        //tmp for testing
         pageContent.innerHTML = target.innerHTML
         const currentProject = findProject(target)
-        console.log(currentProject)
+        if (currentProject) getTasks(currentProject);
     }
 
     function getTasks(project) {
@@ -37,7 +36,7 @@ export const navigation = (function() {
         tasks.forEach(task => {
           const taskDiv = document.createElement('div');
           taskDiv.textContent = `Task ID: ${task.id}, Description: ${task.description}, Date: ${task.date}, Completed: ${task.completed}`;
-          contentDiv.appendChild(taskDiv);
+          pageContent.appendChild(taskDiv);
         });
       }
 
