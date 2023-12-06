@@ -1,4 +1,19 @@
-export const projectsList = []
+export const projects = (function() {
+    
+    function addProject(project) {
+      const test = {}
+      localStorage.setItem('projects', JSON.stringify(test))
+      const projectList = JSON.parse(localStorage.getItem('projects'))
+      console.log(projectList)
+      projectList[`${project.id}`] = project
+      localStorage.setItem('projects', JSON.stringify(projectList))
+      console.log(localStorage.getItem('projects'))
+    }
+
+
+
+    return { addProject }
+})();
 
 export class Project {
     constructor(name, desc) {

@@ -1,4 +1,4 @@
-import { projectsList } from "./projects";
+import { projects } from "./projects";
 import { pageContent } from "./globals";
 
 export const navigation = (function() {
@@ -67,6 +67,7 @@ export const navigation = (function() {
       function findProject(target) {
         const targetId = target.dataset.projectId
         if (targetId) {
+            // need to fix later
             return projectsList.filter(project => project.id === targetId)[0]
         }
       }

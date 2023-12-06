@@ -1,5 +1,5 @@
 import { navigation } from "./content-control";
-import { Project, Task, projectsList } from "./projects"
+import { Project, Task, projects } from "./projects"
 import { projectsContainer } from "./globals";
 
 //module to control the add project modal
@@ -21,6 +21,8 @@ const addProjectModal = (function() {
         
         const newProject = new Project(projectName, desc) 
         buildProject(newProject)
+
+        //need to fix later
         projectsList.push(newProject)
         closeModal();
     }
@@ -108,4 +110,15 @@ const initialPageLoad = (function() {
     inboxTab.setup()
     projectsTab.setup()
     addProjectModal.setup()
+
+    if (!localStorage.getItem('projects')) {
+        let newProjectsList = {}
+        newProjectsList = JSON.stringify(newProjectsList)
+        localStorage.setItem('projects', newProjectsList)
+    }
+
+    projects.addProject(new Project('test', 'test'))
+    localStorage.clear()
+    console.log(localStorage.getItem('projects'))
+
 })();
