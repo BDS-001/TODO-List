@@ -20,28 +20,28 @@ const addProjectModal = (function() {
         let desc = document.getElementById("projectDescription").value;
         
         const newProject = projects.newProject(projectName, desc) 
-        buildProject(newProject)
+        projectsTab.buildProject(newProject)
         closeModal();
     }
     
-    function buildProject(project) {
-        const container = document.createElement('div')
-        container.className = 'sidebar-element'
+    // function buildProject(project) {
+    //     const container = document.createElement('div')
+    //     container.className = 'sidebar-element'
     
-        const icon = document.createElement('i')
-        icon.className = 'bi bi-dot'
+    //     const icon = document.createElement('i')
+    //     icon.className = 'bi bi-dot'
     
-        const projectName = document.createElement('a')
-        projectName.innerHTML = project.name
-        projectName.setAttribute('href', 'javascript:;')
-        navigation.addNavigationClickEvent(projectName)
-        projectName.dataset.title = project.name
-        projectName.dataset.projectId = project.id
+    //     const projectName = document.createElement('a')
+    //     projectName.innerHTML = project.name
+    //     projectName.setAttribute('href', 'javascript:;')
+    //     navigation.addNavigationClickEvent(projectName)
+    //     projectName.dataset.title = project.name
+    //     projectName.dataset.projectId = project.id
     
-        container.append(icon)
-        container.append(projectName)
-        projectsContainer.append(container)
-    }
+    //     container.append(icon)
+    //     container.append(projectName)
+    //     projectsContainer.append(container)
+    // }
 
     function closeModalEventListener() {
         const closeButton = document.querySelector('.close-btn')
@@ -95,11 +95,38 @@ const projectsTab = (function() {
         addProjectButton.addEventListener('click', addProject)
     }
 
-    function setup() {
-        addProjectClickEvent()
+    function loadProjects() {
+        const projectsList = Object.values(JSON.parse(localStorage.getItem('projects')))
+        projectsList.forEach(proj => {
+            buildProject(proj)
+        });
     }
 
-    return {setup}
+    function buildProject(project) {
+        const container = document.createElement('div')
+        container.className = 'sidebar-element'
+    
+        const icon = document.createElement('i')
+        icon.className = 'bi bi-dot'
+    
+        const projectName = document.createElement('a')
+        projectName.innerHTML = project.name
+        projectName.setAttribute('href', 'javascript:;')
+        navigation.addNavigationClickEvent(projectName)
+        projectName.dataset.title = project.name
+        projectName.dataset.projectId = project.id
+    
+        container.append(icon)
+        container.append(projectName)
+        projectsContainer.append(container)
+    }
+
+    function setup() {
+        addProjectClickEvent()
+        loadProjects()
+    }
+
+    return { setup, buildProject }
 })();
 
 //setup webpage on startup
@@ -107,5 +134,4 @@ const initialPageLoad = (function() {
     inboxTab.setup()
     projectsTab.setup()
     addProjectModal.setup()
-
 })();

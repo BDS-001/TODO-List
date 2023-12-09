@@ -56,14 +56,16 @@ export const projects = (function() {
       return tasksList[taskId];
   }
   
-  function getInProgressTasks() {
-      const tasksList = JSON.parse(localStorage.getItem('tasks')).values()
-      return tasksList.filter(task => !task.completed);
+  function getInProgressTasks(projectId) {
+      const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
+      if (tasksList) {
+        return tasksList.filter(task => !task.completed && task.project == projectId);
+      }
   }
   
-  function getCompletedTasks() {
-      const tasksList = JSON.parse(localStorage.getItem('tasks')).values()
-      return tasksList.filter(task => task.completed);
+  function getCompletedTasks(projectId) {
+      const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
+      return tasksList.filter(task => task.completed && task.project == projectId);
   }
 
   return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, generateUniqueId }
@@ -82,13 +84,13 @@ export const tasks = (function() {
       localStorage.setItem('tasks', JSON.stringify(taskList))
   }
 
-  function newTask(id, title, desc, project) {
+  function newTask(id, title, desc, projectId) {
     const task = {
       'id': id,
       'title': title,
       'desc': desc,
       'date': Date.now(),
-      'project': project,
+      'project': projectId,
       'completed': false
   }
       const taskList = JSON.parse(localStorage.getItem('tasks'))

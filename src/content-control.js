@@ -1,3 +1,4 @@
+import { projects, tasks } from "./projects";
 import { pageContent } from "./globals";
 
 export const navigation = (function() {
@@ -29,7 +30,7 @@ export const navigation = (function() {
 
         const currentProject = findProject(target)
         if (currentProject) {
-            projectContent(target, currentProject);
+            //projectContent(target, currentProject);
         } else {
             inboxContent(target)
         }
@@ -42,8 +43,8 @@ export const navigation = (function() {
     function projectContent(target, project) {
         addTaskButton()
         //tmp
-        project.addTask('first task', 'we need to finish this')
-        project.addTask('second task', 'call cleints and confirm something')
+        //project.addTask('first task', 'we need to finish this')
+        //project.addTask('second task', 'call cleints and confirm something')
         getTasks(project)
     }
 
@@ -55,7 +56,7 @@ export const navigation = (function() {
     }
 
     function getTasks(project) {
-        const tasks = project.getInProgressTasks();
+        const tasks = projects.getInProgressTasks(project.id);
         tasks.forEach(task => {
           const taskDiv = document.createElement('div');
           taskDiv.textContent = `Task: ${task.title}, Description: ${task.desc}, Date: ${task.date}, Completed: ${task.completed}`;
@@ -66,8 +67,8 @@ export const navigation = (function() {
       function findProject(target) {
         const targetId = target.dataset.projectId
         if (targetId) {
-            // need to fix later
-            return projectsList.filter(project => project.id === targetId)[0]
+            const projectsList = JSON.parse(localStorage.getItem('projects'))
+            return projectsList[targetId]
         }
       }
 
