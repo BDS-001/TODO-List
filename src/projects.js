@@ -15,16 +15,18 @@ export const projects = (function() {
       }
 
       const projectList = JSON.parse(localStorage.getItem('projects'))
-      projectList[`${project['id']}`] = project
+      projectList[project.id] = project
       localStorage.setItem('projects', JSON.stringify(projectList))
 
       return project
   }
 
-  function addTask(project, title, desc) {
+  function addTask(projectId, title, desc) {
+      const projectList = JSON.parse(localStorage.getItem('projects'))
+
       const taskId = generateUniqueId();
-      const task = newTask(taskId, title, desc, project.name);
-      project.tasks.push(task.taskId);
+      const task = tasks.newTask(taskId, title, desc, projectId);
+      projectList[projectId].tasks.push(task.id);
       tasks.newTask(task)
       return task;
   }
@@ -58,6 +60,8 @@ export const projects = (function() {
   
   function getInProgressTasks(projectId) {
       const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
+      console.log('here', tasksList)
+      console.log('list', JSON.parse(localStorage.getItem('tasks')))
       if (tasksList) {
         return tasksList.filter(task => !task.completed && task.project == projectId);
       }
@@ -68,7 +72,7 @@ export const projects = (function() {
       return tasksList.filter(task => task.completed && task.project == projectId);
   }
 
-  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, generateUniqueId }
+  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, generateUniqueId, addTask }
 })();
 
 export const tasks = (function() {
@@ -94,7 +98,7 @@ export const tasks = (function() {
       'completed': false
   }
       const taskList = JSON.parse(localStorage.getItem('tasks'))
-      taskList[task.taskId] = task
+      taskList[task.id] = task
       localStorage.setItem('tasks', JSON.stringify(taskList))
 
       return task

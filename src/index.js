@@ -134,4 +134,6 @@ const initialPageLoad = (function() {
     inboxTab.setup()
     projectsTab.setup()
     addProjectModal.setup()
+
+    //localStorage.clear()
 })();
