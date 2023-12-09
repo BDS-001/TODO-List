@@ -1,4 +1,3 @@
-import { projects } from "./projects";
 import { pageContent } from "./globals";
 
 export const navigation = (function() {
