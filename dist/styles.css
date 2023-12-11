@@ -118,3 +118,17 @@ body {
 #add-task:hover {
     background-color: var(--dark-page-accent-color); 
 }
+
+.task-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+  }
+
+  .completed {
+    text-decoration: line-through;
+    color: #999;
+  }

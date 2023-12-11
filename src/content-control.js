@@ -59,10 +59,29 @@ export const navigation = (function() {
         const tasks = projects.getInProgressTasks(project.id);
         console.log(project)
         tasks.forEach(task => {
-          const taskDiv = document.createElement('div');
-          taskDiv.textContent = `Task: ${task.title}, Description: ${task.desc}, Date: ${task.date}, Completed: ${task.completed}`;
-          pageContent.appendChild(taskDiv);
+          buildTask(task)
         });
+      }
+
+      function buildTask(task) {
+        // Create a new div element for the card
+        const card = document.createElement("div");
+        card.className = "task-card";
+
+        if (task.completed) {
+        card.classList.add("completed");
+        }
+
+        // Create HTML content for the card
+        card.innerHTML = `
+        <h3>${task.title}</h3>
+        <p>${task.description}</p>
+        <p>Date: ${task.date}</p>
+        <p>Status: ${task.completed ? 'Completed' : 'Incomplete'}</p>
+        `;
+
+        // Append the card to the body of the document
+        pageContent.appendChild(card);
       }
 
       function findProject(target) {
