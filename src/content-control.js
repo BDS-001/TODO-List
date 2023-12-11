@@ -43,8 +43,8 @@ export const navigation = (function() {
     function projectContent(target, project) {
         addTaskButton()
         //tmp
-        projects.addTask(project.id, 'first task', 'we need to finish this')
-        projects.addTask(project.id, 'second task', 'call cleints and confirm something')
+        //projects.addTask(project.id, 'first task', 'we need to finish this')
+        //projects.addTask(project.id, 'second task', 'call cleints and confirm something')
         getTasks(project)
     }
 
