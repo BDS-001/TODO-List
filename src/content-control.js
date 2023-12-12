@@ -26,12 +26,17 @@ export const navigation = (function() {
 
  export const contentFilter = (function() {
     function getContent(target) {
-        pageContent.innerHTML = target.dataset.title
+        pageContent.innerHTML = ''
+
+        const contentTitle = document.createElement('div');
+        contentTitle.className = 'content-title'
+        contentTitle.innerHTML = `<h1 style="font-size: 50px; font-weight: bold; display: inline;">${target.dataset.title}</h1>`;
 
         const currentProject = findProject(target)
         if (currentProject) {
-            projectContent(target, currentProject);
+            projectContent(target, currentProject, contentTitle);
         } else {
+            pageContent.append(contentTitle)
             inboxContent(target)
         }
     }
@@ -40,19 +45,20 @@ export const navigation = (function() {
         //tmp
     }
 
-    function projectContent(target, project) {
-        addTaskButton()
+    function projectContent(target, project, contentTitle) {
+        addTaskButton(contentTitle)
         //tmp
         //projects.addTask(project.id, 'first task', 'we need to finish this')
         //projects.addTask(project.id, 'second task', 'call cleints and confirm something')
         getTasks(project)
     }
 
-    function addTaskButton() {
+    function addTaskButton(contentTitle) {
         const addTask = document.createElement('button')
         addTask.id = 'add-task'
         addTask.innerHTML = 'Add Task'
-        pageContent.append(addTask)
+        contentTitle.append(addTask)
+        pageContent.append(contentTitle)
     }
 
     function getTasks(project) {
