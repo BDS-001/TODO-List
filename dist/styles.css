@@ -106,13 +106,16 @@ body {
     cursor: pointer;
 }
 
-#add-task {
-    background-color: var(--page-accent-color);
+button {
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#add-task {
+    background-color: var(--page-accent-color);
     font-size: 16px;
 }
 
@@ -138,4 +141,20 @@ body {
     display: flex;
     gap: 40px;
     align-items: center;
+  }
+
+  .remove-btn {
+    background-color: #ff6666;
+    color: white;
+  }
+
+  .complete-btn {
+    background-color: #66cc66;
+    color: white;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
   }

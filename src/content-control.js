@@ -74,20 +74,54 @@ export const navigation = (function() {
         const card = document.createElement("div");
         card.className = "task-card";
 
+        // Check if the task is completed and add a class accordingly
         if (task.completed) {
         card.classList.add("completed");
         }
 
-        // Create HTML content for the card
-        card.innerHTML = `
-        <h3>${task.title}</h3>
-        <p>${task.description}</p>
-        <p>Date: ${task.date}</p>
-        <p>Status: ${task.completed ? 'Completed' : 'Incomplete'}</p>
-        `;
+        // Create and append HTML content for the card
+        const titleElement = document.createElement("h3");
+        titleElement.textContent = task.title;
+        card.appendChild(titleElement);
+
+        const descriptionElement = document.createElement("p");
+        descriptionElement.textContent = task.description;
+        card.appendChild(descriptionElement);
+
+        const dateElement = document.createElement("p");
+        dateElement.textContent = "Date: " + task.date;
+        card.appendChild(dateElement);
+
+        const statusElement = document.createElement("p");
+        statusElement.textContent = "Status: " + (task.completed ? 'Completed' : 'Incomplete');
+        card.appendChild(statusElement);
+
+        // Create and append "Remove Task" button
+        const removeButton = document.createElement("button");
+        removeButton.className = "btn remove-btn";
+        removeButton.textContent = "Remove Task";
+        removeButton.dataset.taskId = task.id;
+        removeButton.addEventListener('click', deleteTask)
+        card.appendChild(removeButton);
+
+        // Create and append "Complete Task" button
+        const completeButton = document.createElement("button");
+        completeButton.className = "btn complete-btn";
+        completeButton.textContent = "Complete Task";
+        completeButton.dataset.taskId = task.id;
+        completeButton.addEventListener('click', completeTask)
+        card.appendChild(completeButton);
 
         // Append the card to the body of the document
         pageContent.appendChild(card);
+      }
+
+      function completeTask(e) {
+        console.log(e.target.dataset.taskId)
+      }
+
+      function deleteTask(e) {
+        console.log(e.target.dataset.taskId)
       }
 
       function findProject(target) {
