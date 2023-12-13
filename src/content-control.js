@@ -1,5 +1,5 @@
 import { projects, tasks } from "./projects";
-import { pageContent } from "./globals";
+import { formatTimestamp, pageContent } from "./globals";
 
 export const navigation = (function() {
     let cache = null
@@ -64,9 +64,15 @@ export const navigation = (function() {
     function getTasks(project) {
         const tasks = projects.getInProgressTasks(project.id);
         console.log(project)
+
+        const tasksContainer = document.createElement('div')
+        tasksContainer.className = 'tasks-container'
+
         tasks.forEach(task => {
-          buildTask(task)
+          tasksContainer.append(buildTask(task))
         });
+
+        pageContent.append(tasksContainer)
       }
 
       function buildTask(task) {
@@ -79,22 +85,32 @@ export const navigation = (function() {
         card.classList.add("completed");
         }
 
+        // Create and append meta info (date and status) in the top corners
+        const metaInfoElement = document.createElement("div");
+        metaInfoElement.className = "meta-info";
+
+        const dateElement = document.createElement("p");
+        dateElement.className = "date";
+        dateElement.textContent = "Date: " + formatTimestamp(task.date);
+        metaInfoElement.appendChild(dateElement);
+
+        const statusElement = document.createElement("p");
+        statusElement.className = "status";
+        statusElement.textContent = (task.completed ? 'Completed' : 'Incomplete');
+        metaInfoElement.appendChild(statusElement);
+
+        card.appendChild(metaInfoElement);
+
         // Create and append HTML content for the card
         const titleElement = document.createElement("h3");
+        titleElement.className = "title";
         titleElement.textContent = task.title;
         card.appendChild(titleElement);
 
         const descriptionElement = document.createElement("p");
-        descriptionElement.textContent = task.description;
+        descriptionElement.className = "description";
+        descriptionElement.textContent = task.desc;
         card.appendChild(descriptionElement);
-
-        const dateElement = document.createElement("p");
-        dateElement.textContent = "Date: " + task.date;
-        card.appendChild(dateElement);
-
-        const statusElement = document.createElement("p");
-        statusElement.textContent = "Status: " + (task.completed ? 'Completed' : 'Incomplete');
-        card.appendChild(statusElement);
 
         // Create and append "Remove Task" button
         const removeButton = document.createElement("button");
@@ -113,7 +129,7 @@ export const navigation = (function() {
         card.appendChild(completeButton);
 
         // Append the card to the body of the document
-        pageContent.appendChild(card);
+        return card
       }
 
       function completeTask(e) {
