@@ -1,8 +1,8 @@
 :root {
     font-family: 'Open Sans', sans-serif;
     --hilight-sidebar: rgba(255, 255, 255, 0.171);
-    --page-accent-color: rgb(11, 116, 11);
-    --dark-page-accent-color: rgb(8, 94, 8);
+    --page-accent-color: #004080;
+    --dark-page-accent-color: #003264;
     color: whitesmoke;
 }
 
@@ -144,12 +144,12 @@ button {
   }
 
   .remove-btn {
-    background-color: #ff6666;
+    background-color: #990000;
     color: white;
   }
 
   .complete-btn {
-    background-color: #66cc66;
+    background-color: #336600;
     color: white;
   }
 
