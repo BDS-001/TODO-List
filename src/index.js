@@ -2,7 +2,6 @@ import { navigation } from "./content-control";
 import { projects, tasks } from "./projects"
 import { projectsContainer } from "./globals";
 
-//module to control the add project modal
 const addProjectModal = (function() {
     function openModal() {
         document.getElementById("modalOverlay").style.display = "block";
@@ -23,25 +22,6 @@ const addProjectModal = (function() {
         projectsTab.buildProject(newProject)
         closeModal();
     }
-    
-    // function buildProject(project) {
-    //     const container = document.createElement('div')
-    //     container.className = 'sidebar-element'
-    
-    //     const icon = document.createElement('i')
-    //     icon.className = 'bi bi-dot'
-    
-    //     const projectName = document.createElement('a')
-    //     projectName.innerHTML = project.name
-    //     projectName.setAttribute('href', 'javascript:;')
-    //     navigation.addNavigationClickEvent(projectName)
-    //     projectName.dataset.title = project.name
-    //     projectName.dataset.projectId = project.id
-    
-    //     container.append(icon)
-    //     container.append(projectName)
-    //     projectsContainer.append(container)
-    // }
 
     function closeModalEventListener() {
         const closeButton = document.querySelector('.close-btn')
@@ -69,6 +49,64 @@ const addProjectModal = (function() {
 
     return { openModal, setup}
 })();
+
+//WIP
+const addTaskModal = (function() {
+    function openTaskModal() {
+        document.getElementById("taskModalOverlay").style.display = "block";
+        document.getElementById("taskModal").style.display = "block";
+    }
+    
+    function closeTaskModal() {
+        document.getElementById("taskModalOverlay").style.display = "none";
+        document.getElementById("taskModal").style.display = "none";
+        clearForm()
+    }
+    
+    function submitTaskForm() {
+        let taskName = document.getElementById("taskName").value;
+        let taskDescription = document.getElementById("taskDescription").value;
+        
+        const newTask = tasks.newTask(taskName, desc) 
+        projectsTab.buildProject(newProject)
+        closeModal();
+    }
+
+    function closeModalEventListener() {
+        const closeButton = document.querySelector('.close-btn')
+        closeButton.addEventListener('click', closeModal)
+    }
+
+    function submitProjectEventListener() {
+        const submitProjectButton = document.querySelector('#submit-project')
+        submitProjectButton.addEventListener('click', submitProject)
+    }
+
+    function clearForm() {
+        const inputs = document.querySelectorAll('.modal-data')
+        console.log(inputs)
+        inputs.forEach(function(formInput) {
+            formInput.value = ''
+        })
+    }
+
+    function setup() {
+        closeModalEventListener()
+        submitProjectEventListener()
+        clearForm()
+    }
+
+})();
+
+
+
+
+
+
+
+
+
+
 
 //module to setup the inbox tab
 const inboxTab = (function() {
@@ -137,3 +175,4 @@ const initialPageLoad = (function() {
 
     //localStorage.clear()
 })();
+
