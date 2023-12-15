@@ -49,7 +49,7 @@
 
                 <!-- project modal -->
                 <div id="projectModal" class="modal">
-                    <span class="close-btn">&#10006;</span>
+                    <span class="project-close-btn close-btn">&#10006;</span>
                     <h2>Enter Project Information</h2>
                     <form id="projectForm">
                         <label for="projectName">Project Name:</label>
@@ -61,23 +61,23 @@
                         <button type="button" id="submit-project">Submit</button>
                     </form>
                 </div>
-            </div>
             
             <!-- task modal -->
             <div id="taskModal" class="modal">
-                <span class="close-btn">&#10006;</span>
+                <span class="task-close-btn close-btn">&#10006;</span>
                 <h2>Enter Task Information</h2>
                 <form id="taskForm">
                     <label for="taskName">Task Name:</label>
-                    <input type="text" id="taskName" name="taskName"  class="modal-data" required>
+                    <input type="text" id="taskName" name="taskName"  class="task-modal-data" required>
                     <br><br>
                     <label for="taskDescription">Task Description:</label>
-                    <textarea id="taskDescription" name="taskDescription" rows="4" class="modal-data" required></textarea>
+                    <textarea id="taskDescription" name="taskDescription" rows="4" class="task-modal-data" required></textarea>
                     <br><br>
                     <button type="button" id="submit-task">Submit</button>
                 </form>
             </div>
 
+        </div>
         </div>
     </div>
     <div id="content"></div>

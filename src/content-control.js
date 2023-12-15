@@ -1,5 +1,6 @@
 import { projects, tasks } from "./projects";
 import { formatTimestamp, pageContent } from "./globals";
+import { addTaskModal } from "./modals";
 
 export const navigation = (function() {
     let cache = null
@@ -24,7 +25,7 @@ export const navigation = (function() {
 
  })();
 
- export const contentFilter = (function() {
+export const contentFilter = (function() {
     function getContent(target) {
         pageContent.innerHTML = ''
 
@@ -57,6 +58,7 @@ export const navigation = (function() {
         const addTask = document.createElement('button')
         addTask.id = 'add-task'
         addTask.innerHTML = 'Add Task'
+        addTask.addEventListener('click', addTaskModal.openModal)
         contentTitle.append(addTask)
         pageContent.append(contentTitle)
     }

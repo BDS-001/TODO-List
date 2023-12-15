@@ -1,110 +1,6 @@
 import { navigation } from "./content-control";
-import { projects, tasks } from "./projects"
 import { projectsContainer } from "./globals";
-
-const addProjectModal = (function() {
-    function openModal() {
-        document.getElementById("modalOverlay").style.display = "block";
-        document.getElementById("projectModal").style.display = "block";
-    }
-    
-    function closeModal() {
-        document.getElementById("modalOverlay").style.display = "none";
-        document.getElementById("projectModal").style.display = "none";
-        clearForm()
-    }
-    
-    function submitProject() {
-        let projectName = document.getElementById("projectName").value;
-        let desc = document.getElementById("projectDescription").value;
-        
-        const newProject = projects.newProject(projectName, desc) 
-        projectsTab.buildProject(newProject)
-        closeModal();
-    }
-
-    function closeModalEventListener() {
-        const closeButton = document.querySelector('.close-btn')
-        closeButton.addEventListener('click', closeModal)
-    }
-
-    function submitProjectEventListener() {
-        const submitProjectButton = document.querySelector('#submit-project')
-        submitProjectButton.addEventListener('click', submitProject)
-    }
-
-    function clearForm() {
-        const inputs = document.querySelectorAll('.modal-data')
-        console.log(inputs)
-        inputs.forEach(function(formInput) {
-            formInput.value = ''
-        })
-    }
-
-    function setup() {
-        closeModalEventListener()
-        submitProjectEventListener()
-        clearForm()
-    }
-
-    return { openModal, setup}
-})();
-
-//WIP
-const addTaskModal = (function() {
-    function openTaskModal() {
-        document.getElementById("taskModalOverlay").style.display = "block";
-        document.getElementById("taskModal").style.display = "block";
-    }
-    
-    function closeTaskModal() {
-        document.getElementById("taskModalOverlay").style.display = "none";
-        document.getElementById("taskModal").style.display = "none";
-        clearForm()
-    }
-    
-    function submitTaskForm() {
-        let taskName = document.getElementById("taskName").value;
-        let taskDescription = document.getElementById("taskDescription").value;
-        
-        const newTask = tasks.newTask(taskName, desc) 
-        projectsTab.buildProject(newProject)
-        closeModal();
-    }
-
-    function closeModalEventListener() {
-        const closeButton = document.querySelector('.close-btn')
-        closeButton.addEventListener('click', closeModal)
-    }
-
-    function submitProjectEventListener() {
-        const submitProjectButton = document.querySelector('#submit-project')
-        submitProjectButton.addEventListener('click', submitProject)
-    }
-
-    function clearForm() {
-        const inputs = document.querySelectorAll('.modal-data')
-        console.log(inputs)
-        inputs.forEach(function(formInput) {
-            formInput.value = ''
-        })
-    }
-
-    function setup() {
-        closeModalEventListener()
-        submitProjectEventListener()
-        clearForm()
-    }
-
-})();
-
-
-
-
-
-
-
-
+import { addProjectModal, addTaskModal } from "./modals.js" 
 
 
 
@@ -122,7 +18,7 @@ const inboxTab = (function() {
 })();
 
 //module to setup projects tab
-const projectsTab = (function() {
+export const projectsTab = (function() {
     function addProject(e) {
         e.preventDefault()
         addProjectModal.openModal()
@@ -172,7 +68,9 @@ const initialPageLoad = (function() {
     inboxTab.setup()
     projectsTab.setup()
     addProjectModal.setup()
+    addTaskModal.setup()
 
     //localStorage.clear()
 })();
+
 
