@@ -36,7 +36,6 @@ export const addProjectModal = (function() {
 
     function clearForm() {
         const inputs = document.querySelectorAll('.modal-data')
-        console.log(inputs)
         inputs.forEach(function(formInput) {
             formInput.value = ''
         })
@@ -85,7 +84,6 @@ export const addTaskModal = (function() {
 
     function clearForm() {
         const inputs = document.querySelectorAll('.task-modal-data')
-        console.log(inputs)
         inputs.forEach(function(formInput) {
             formInput.value = ''
         })

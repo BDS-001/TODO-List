@@ -64,7 +64,6 @@ export const contentFilter = (function() {
 
     function getTasks(project) {
         const tasks = projects.getInProgressTasks(project.id);
-        console.log(project)
 
         const tasksContainer = document.createElement('div')
         tasksContainer.className = 'tasks-container'
@@ -134,11 +133,16 @@ export const contentFilter = (function() {
       }
 
       function completeTask(e) {
-        console.log(e.target.dataset.taskId)
+        tasks.markComplete(e.target.dataset.taskId)
+        getContent(currentNavElement)
       }
 
       function deleteTask(e) {
-        console.log(e.target.dataset.taskId)
+        let tasks = JSON.parse(localStorage.getItem('tasks'))
+        const taskId = e.target.dataset.taskId
+        delete tasks[taskId]
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+        getContent(currentNavElement)
       }
 
       function findProject(target) {

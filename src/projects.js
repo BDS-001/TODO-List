@@ -60,8 +60,6 @@ export const projects = (function() {
   
   function getInProgressTasks(projectId) {
       const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
-      console.log('here', tasksList)
-      console.log('list', JSON.parse(localStorage.getItem('tasks')))
       if (tasksList) {
         return tasksList.filter(task => !task.completed && task.project == projectId);
       }
