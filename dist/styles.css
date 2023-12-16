@@ -124,45 +124,41 @@ button {
 }
 
 .task-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-    position: relative;
-  }
+  border: 1px solid #ccc;
+  padding: 10px;
+  padding-top: 0px;
+  padding-bottom: 60px;
+  margin-bottom: 10px;
+  position: relative;
+}
 
-  .completed {
-    text-decoration: line-through;
-    color: #999;
-  }
 
-  .title {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 8px;
+.completed {
+  background-color: #e0ffe0;
+}
+
+.title, .description {
+  margin: 5px 0;
+}
+
+.title {
     text-align: center;
   }
 
-  .description {
-    margin-bottom: 16px;
-  }
-
-  .meta-info {
+.meta-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8em;
-    margin-bottom: 10px;
-  }
+    font-size: small;
+    margin-top: 0;
+}
 
-  .date {
-    order: 1;
-  }
+.date {
+  float: left;
+}
 
-  .status {
-    order: 2;
-  }
+.status {
+  float: right;
+}
 
   .content-title {
     display: flex;
@@ -173,18 +169,22 @@ button {
   .remove-btn {
     background-color: #990000;
     color: white;
+    left: 10px;
   }
 
   .complete-btn {
     background-color: #336600;
     color: white;
+    right: 10px;
   }
 
   .btn {
     padding: 5px 10px;
     margin: 5px;
     cursor: pointer;
-  }
+    position: absolute;
+    bottom: 10px;
+}
 
   .tasks-container {
     display: grid;
