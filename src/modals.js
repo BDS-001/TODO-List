@@ -1,6 +1,7 @@
 import { projects, tasks } from "./projects"
 import { projectsTab } from ".";
-import { currentProjectCache } from "./globals";
+import { currentNavElement } from "./globals";
+import { contentFilter } from "./content-control";
 
 export const addProjectModal = (function() {
     function openModal() {
@@ -67,7 +68,8 @@ export const addTaskModal = (function() {
         const taskName = document.getElementById("taskName").value;
         const taskDescription = document.getElementById("taskDescription").value;
         
-        const newTask = tasks.newTask(taskName, taskDescription, currentProjectCache) 
+        const newTask = tasks.newTask(taskName, taskDescription, currentNavElement.dataset.projectId)
+        contentFilter.getContent(currentNavElement)
         closeTaskModal();
     }
 

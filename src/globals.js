@@ -1,6 +1,6 @@
 export const projectsContainer = document.querySelector('.projects')
 export const pageContent = document.querySelector('#content')
-export let currentProjectCache = null
+export let currentNavElement = null
 
 export function formatTimestamp(timestamp) {
     // Create a new Date object using the timestamp

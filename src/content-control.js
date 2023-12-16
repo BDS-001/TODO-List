@@ -1,14 +1,13 @@
 import { projects, tasks } from "./projects";
-import { formatTimestamp, pageContent, currentProjectCache } from "./globals";
+import { formatTimestamp, pageContent, currentNavElement } from "./globals";
 import { addTaskModal } from "./modals";
 
 export const navigation = (function() {
-    let cache = null
 
     function hilightElement(e) {
-        if (cache) cache.style.backgroundColor = 'inherit';
+        if (currentNavElement) currentNavElement.parentNode.style.backgroundColor = 'inherit';
         e.target.parentNode.style.backgroundColor = 'var(--hilight-sidebar)';
-        cache = e.target.parentNode;
+        currentNavElement = e.target;
     }
     
     function changeView(e) {
@@ -47,7 +46,6 @@ export const contentFilter = (function() {
     }
 
     function projectContent(target, project, contentTitle) {
-        currentProjectCache = project.id
         contentTitle.append(addTaskButton(project))
         pageContent.append(contentTitle)
         //tmp
