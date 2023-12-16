@@ -1,3 +1,16 @@
+export function generateUniqueId() {
+    // Generate a random number and convert it to a hexadecimal string
+    const randomPart = Math.floor(Math.random() * Date.now()).toString(16);
+
+    // Use the current timestamp to ensure uniqueness
+    const timestampPart = new Date().getTime().toString(16);
+
+    // Concatenate the random and timestamp parts
+    const uniqueId = randomPart + timestampPart;
+
+    return uniqueId;
+}
+
 //project functions
 export const projects = (function() {
   if (!localStorage.getItem('projects')) {
@@ -40,19 +53,6 @@ export const projects = (function() {
       return false; // Task not found
   }
   
-  function generateUniqueId() {
-      // Generate a random number and convert it to a hexadecimal string
-      const randomPart = Math.floor(Math.random() * Date.now()).toString(16);
-
-      // Use the current timestamp to ensure uniqueness
-      const timestampPart = new Date().getTime().toString(16);
-
-      // Concatenate the random and timestamp parts
-      const uniqueId = randomPart + timestampPart;
-
-      return uniqueId;
-  }
-  
   function findTaskById(taskId) {
       const tasksList = JSON.parse(localStorage.getItem('tasks'))
       return tasksList[taskId];
@@ -72,7 +72,7 @@ export const projects = (function() {
       return tasksList.filter(task => task.completed && task.project == projectId);
   }
 
-  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, generateUniqueId, addTask }
+  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, addTask }
 })();
 
 export const tasks = (function() {
@@ -88,9 +88,9 @@ export const tasks = (function() {
       localStorage.setItem('tasks', JSON.stringify(taskList))
   }
 
-  function newTask(id, title, desc, projectId) {
+  function newTask(title, desc, projectId) {
     const task = {
-      'id': id,
+      'id': generateUniqueId(),
       'title': title,
       'desc': desc,
       'date': Date.now(),

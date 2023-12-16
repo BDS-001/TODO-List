@@ -1,5 +1,5 @@
 import { projects, tasks } from "./projects";
-import { formatTimestamp, pageContent } from "./globals";
+import { formatTimestamp, pageContent, currentProjectCache } from "./globals";
 import { addTaskModal } from "./modals";
 
 export const navigation = (function() {
@@ -47,20 +47,21 @@ export const contentFilter = (function() {
     }
 
     function projectContent(target, project, contentTitle) {
-        addTaskButton(contentTitle)
+        currentProjectCache = project.id
+        contentTitle.append(addTaskButton(project))
+        pageContent.append(contentTitle)
         //tmp
         //projects.addTask(project.id, 'first task', 'we need to finish this')
         //projects.addTask(project.id, 'second task', 'call cleints and confirm something')
         getTasks(project)
     }
 
-    function addTaskButton(contentTitle) {
+    function addTaskButton(project) {
         const addTask = document.createElement('button')
         addTask.id = 'add-task'
         addTask.innerHTML = 'Add Task'
         addTask.addEventListener('click', addTaskModal.openModal)
-        contentTitle.append(addTask)
-        pageContent.append(contentTitle)
+        return addTask
     }
 
     function getTasks(project) {

@@ -1,5 +1,6 @@
 import { projects, tasks } from "./projects"
 import { projectsTab } from ".";
+import { currentProjectCache } from "./globals";
 
 export const addProjectModal = (function() {
     function openModal() {
@@ -63,10 +64,10 @@ export const addTaskModal = (function() {
     }
     
     function submitTaskForm() {
-        let taskName = document.getElementById("taskName").value;
-        let taskDescription = document.getElementById("taskDescription").value;
+        const taskName = document.getElementById("taskName").value;
+        const taskDescription = document.getElementById("taskDescription").value;
         
-        const newTask = tasks.newTask(taskName, taskDescription) 
+        const newTask = tasks.newTask(taskName, taskDescription, currentProjectCache) 
         closeTaskModal();
     }
 

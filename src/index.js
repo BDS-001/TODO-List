@@ -73,4 +73,3 @@ const initialPageLoad = (function() {
     //localStorage.clear()
 })();
 
-
