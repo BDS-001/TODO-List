@@ -34,11 +34,11 @@ export const projects = (function() {
       return project
   }
 
-  function addTask(projectId, title, desc) {
+  function addTask(projectId, title, desc, dueDate, priorityLevel) {
       const projectList = JSON.parse(localStorage.getItem('projects'))
 
       const taskId = generateUniqueId();
-      const task = tasks.newTask(taskId, title, desc, projectId);
+      const task = tasks.newTask(taskId, title, desc, projectId, dueDate, priorityLevel);
       projectList[projectId].tasks.push(task.id);
       tasks.newTask(task)
       return task;
@@ -70,7 +70,12 @@ export const projects = (function() {
       return tasksList.filter(task => task.completed && task.project == projectId);
   }
 
-  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, addTask }
+  function getAllTasks(projectId) {
+    const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
+    return tasksList.filter(task => task.project == projectId);
+}
+
+  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, addTask, getAllTasks }
 })();
 
 export const tasks = (function() {
@@ -86,14 +91,16 @@ export const tasks = (function() {
       localStorage.setItem('tasks', JSON.stringify(taskList))
   }
 
-  function newTask(title, desc, projectId) {
+  function newTask(title, desc, projectId, dueDate, priorityLevel) {
     const task = {
       'id': generateUniqueId(),
       'title': title,
       'desc': desc,
       'date': Date.now(),
       'project': projectId,
-      'completed': false
+      'completed': false,
+      'dueDate': dueDate,
+      'priorityLevel': priorityLevel
   }
       const taskList = JSON.parse(localStorage.getItem('tasks'))
       taskList[task.id] = task

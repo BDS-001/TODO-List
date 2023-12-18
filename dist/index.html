@@ -14,6 +14,19 @@
 
 </head>
 <body>
+    <!-- tmp -->
+    <button onclick="clearStorageAndRefresh()">Clear Local Storage and Refresh</button>
+
+    <script>
+        function clearStorageAndRefresh() {
+            // Clear local storage
+            localStorage.clear();
+
+            // Refresh the page
+            location.reload();
+        }
+    </script>
+    <!-- tmp -->
     <div id="header">Todo List</div>
     <div id="sidebar">
         <div class="inbox">
@@ -72,6 +85,16 @@
                     <br><br>
                     <label for="taskDescription">Task Description:</label>
                     <textarea id="taskDescription" name="taskDescription" rows="4" class="task-modal-data" required></textarea>
+                    <br><br>
+                    <label for="due-date">Enter the due date:</label>
+                    <input type="date" id="due-date" name="due-date">
+                    <br><br>
+                    <label for="priority-level">Select priority level:</label>
+                    <select id="priority-level" name="priority-level">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
                     <br><br>
                     <button type="button" id="submit-task">Submit</button>
                 </form>

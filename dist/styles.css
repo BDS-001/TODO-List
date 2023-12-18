@@ -134,7 +134,7 @@ button {
 
 
 .completed {
-  background-color: #e0ffe0;
+  background-color: #336600;
 }
 
 .title, .description {
@@ -160,25 +160,25 @@ button {
   float: right;
 }
 
-  .content-title {
+.content-title {
     display: flex;
     gap: 40px;
     align-items: center;
   }
 
-  .remove-btn {
+.remove-btn {
     background-color: #990000;
     color: white;
     left: 10px;
   }
 
-  .complete-btn {
+.complete-btn {
     background-color: #336600;
     color: white;
     right: 10px;
   }
 
-  .btn {
+.btn {
     padding: 5px 10px;
     margin: 5px;
     cursor: pointer;
@@ -186,8 +186,14 @@ button {
     bottom: 10px;
 }
 
-  .tasks-container {
+.tasks-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
     gap: 20px;
   }
+
+#submit-task,
+#submit-project {
+  width: 100%;
+  background-color: var(--dark-page-accent-color);
+}

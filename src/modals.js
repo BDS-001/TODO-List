@@ -66,8 +66,10 @@ export const addTaskModal = (function() {
     function submitTaskForm() {
         const taskName = document.getElementById("taskName").value;
         const taskDescription = document.getElementById("taskDescription").value;
-        
-        const newTask = tasks.newTask(taskName, taskDescription, currentNavElement.dataset.projectId)
+        const dueDate = document.getElementById('due-date').value
+        const priorityLevel = document.getElementById('priority-level').value
+        console.log('here')
+        const newTask = tasks.newTask(taskName, taskDescription, currentNavElement.dataset.projectId, dueDate, priorityLevel)
         contentFilter.getContent(currentNavElement)
         closeTaskModal();
     }

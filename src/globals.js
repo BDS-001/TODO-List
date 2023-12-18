@@ -12,7 +12,7 @@ export function formatTimestamp(timestamp) {
     const year = date.getFullYear().toString().slice(-2);
   
     // Create a formatted string
-    const formattedDate = `${day}-${month}-${year}`;
+    const formattedDate = `${year}-${month}-${day}`;
   
     return formattedDate;
   }
