@@ -24,11 +24,13 @@ export const projectsTab = (function() {
         addProjectModal.openModal()
     }
 
+    // add clickevent to the + button
     function addProjectClickEvent() {
         const addProjectButton = document.querySelector('#add-project')
         addProjectButton.addEventListener('click', addProject)
     }
 
+    //loads all the projects into the navbar
     function loadProjects() {
         const projectsList = Object.values(JSON.parse(localStorage.getItem('projects')))
         projectsList.forEach(proj => {
@@ -36,6 +38,7 @@ export const projectsTab = (function() {
         });
     }
 
+    // builds the nav entry for each project
     function buildProject(project) {
         const container = document.createElement('div')
         container.className = 'sidebar-element'
@@ -55,6 +58,7 @@ export const projectsTab = (function() {
         projectsContainer.append(container)
     }
 
+    //setup function for initial page load
     function setup() {
         addProjectClickEvent()
         loadProjects()
@@ -69,7 +73,5 @@ const initialPageLoad = (function() {
     projectsTab.setup()
     addProjectModal.setup()
     addTaskModal.setup()
-
-    //localStorage.clear()
 })();
 

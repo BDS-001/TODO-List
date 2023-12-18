@@ -42,16 +42,18 @@ export const contentFilter = (function() {
     }
 
     function inboxContent(target) {
-        //tmp
+        if (target.dataset.title === 'all') {
+            getTasks()
+        } else if (target.dataset.title === 'today') {
+
+        }
     }
 
     function projectContent(target, project, contentTitle) {
         contentTitle.append(addTaskButton(project))
         pageContent.append(contentTitle)
-        //tmp
-        //projects.addTask(project.id, 'first task', 'we need to finish this')
-        //projects.addTask(project.id, 'second task', 'call cleints and confirm something')
-        getTasks(project)
+        const tasks = projects.getAllTasks(project.id);
+        pageContent.append(getTasks(tasks))
     }
 
     function addTaskButton(project) {
@@ -62,9 +64,7 @@ export const contentFilter = (function() {
         return addTask
     }
 
-    function getTasks(project) {
-        const tasks = projects.getAllTasks(project.id);
-
+    function getTasks(tasks) {
         const tasksContainer = document.createElement('div')
         tasksContainer.className = 'tasks-container'
 
@@ -72,7 +72,7 @@ export const contentFilter = (function() {
           tasksContainer.append(buildTask(task))
         });
 
-        pageContent.append(tasksContainer)
+        return (tasksContainer)
       }
 
       function buildTask(task) {

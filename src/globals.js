@@ -16,3 +16,7 @@ export function formatTimestamp(timestamp) {
   
     return formattedDate;
   }
+
+export function clearForm(form) {
+  form.reset();
+}
