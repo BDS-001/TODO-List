@@ -42,10 +42,16 @@ export const contentFilter = (function() {
     }
 
     function inboxContent(target) {
-        if (target.dataset.title === 'all') {
-            getTasks()
-        } else if (target.dataset.title === 'today') {
+        if (target.dataset.category === 'all') {
+            
+        } else if (target.dataset.category === 'today') {
 
+        } else if (target.dataset.category === 'upcoming') {
+            
+        } else if (target.dataset.category === 'anytime') {
+            
+        } else if (target.dataset.category === 'archive') {
+            
         }
     }
 
@@ -75,72 +81,49 @@ export const contentFilter = (function() {
         return (tasksContainer)
       }
 
-      function buildTask(task) {
+      function buildTask(task, project = null) {
+        // Helper function to create and append elements
+        function createElement(type, className, content, parent) {
+            const element = document.createElement(type);
+            element.className = className;
+            element.textContent = content;
+            parent.appendChild(element);
+            return element;
+        }
+    
         // Create a new div element for the card
         const card = document.createElement("div");
-        card.className = "task-card";
-
-        // Check if the task is completed and add a class accordingly
-        if (task.completed) {
-        card.classList.add("completed");
-        }
-
+        card.className = `task-card ${task.completed ? 'completed' : ''}`;
+    
         // Create and append meta info (date and status) in the top corners
-        const metaInfoElement = document.createElement("div");
-        metaInfoElement.className = "meta-info";
-
-        const dateElement = document.createElement("p");
-        dateElement.className = "date";
-        dateElement.textContent = "Date: " + formatTimestamp(task.date);
-        metaInfoElement.appendChild(dateElement);
-
-        const statusElement = document.createElement("p");
-        statusElement.className = "status";
-        statusElement.textContent = (task.completed ? 'Completed' : 'Incomplete');
-        metaInfoElement.appendChild(statusElement);
-
-        card.appendChild(metaInfoElement);
-
-        // Create and append HTML content for the card
-        const titleElement = document.createElement("h3");
-        titleElement.className = "title";
-        titleElement.textContent = task.title;
-        card.appendChild(titleElement);
-
-        const descriptionElement = document.createElement("p");
-        descriptionElement.className = "description";
-        descriptionElement.textContent = task.desc;
-        card.appendChild(descriptionElement);
-
-        const dueDateElement = document.createElement('p');
-        dueDateElement.textContent = 'Due Date: ' + task.dueDate;
-        card.appendChild(dueDateElement)
-
-        const priorityElement = document.createElement('p');
-        priorityElement.textContent = 'Priority Level: ' + task.priorityLevel;
-        card.appendChild(priorityElement)
-
-        if (!task.completed) {
-            // Create and append "Remove Task" button
-            const removeButton = document.createElement("button");
-            removeButton.className = "btn remove-btn";
-            removeButton.textContent = "Remove Task";
-            removeButton.dataset.taskId = task.id;
-            removeButton.addEventListener('click', deleteTask)
-            card.appendChild(removeButton);
-
-            // Create and append "Complete Task" button
-            const completeButton = document.createElement("button");
-            completeButton.className = "btn complete-btn";
-            completeButton.textContent = "Complete Task";
-            completeButton.dataset.taskId = task.id;
-            completeButton.addEventListener('click', completeTask)
-            card.appendChild(completeButton);
+        const metaInfoElement = createElement("div", "meta-info", "", card);
+        createElement("p", "date", `Date: ${formatTimestamp(task.date)}`, metaInfoElement);
+        createElement("p", "status", `${task.completed ? 'Completed' : 'Incomplete'}`, metaInfoElement);
+    
+        // Add project title if provided
+        if (project) {
+            createElement("h4", "project-title", `Project: ${project.title}`, card);
         }
-
-        // Append the card to the body of the document
-        return card
-      }
+    
+        // Create and append other task details
+        createElement("h3", "title", task.title, card);
+        createElement("p", "description", task.desc, card);
+        createElement("p", "", `Due Date: ${task.dueDate}`, card);
+        createElement("p", "", `Priority Level: ${task.priorityLevel}`, card);
+    
+        // Create and append buttons if the task is not completed
+        if (!task.completed) {
+            const removeButton = createElement("button", "btn remove-btn", "Remove Task", card);
+            removeButton.dataset.taskId = task.id;
+            removeButton.addEventListener('click', deleteTask);
+    
+            const completeButton = createElement("button", "btn complete-btn", "Complete Task", card);
+            completeButton.dataset.taskId = task.id;
+            completeButton.addEventListener('click', completeTask);
+        }
+    
+        return card;
+    }
 
       function completeTask(e) {
         tasks.markComplete(e.target.dataset.taskId)
