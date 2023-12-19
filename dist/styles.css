@@ -1,6 +1,6 @@
 :root {
     font-family: 'Open Sans', sans-serif;
-    --hilight-sidebar: rgba(255, 255, 255, 0.171);
+    --highlight-sidebar: rgba(255, 255, 255, 0.171);
     --page-accent-color: #004080;
     --dark-page-accent-color: #003264;
     color: whitesmoke;

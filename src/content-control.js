@@ -3,47 +3,59 @@ import { formatTimestamp, pageContent, currentNavElement } from "./globals";
 import { addTaskModal } from "./modals";
 
 export const navigation = (function() {
-
-    function hilightElement(e) {
+    function highlightElement(e) {
         if (currentNavElement) currentNavElement.parentNode.style.backgroundColor = 'inherit';
-        e.target.parentNode.style.backgroundColor = 'var(--hilight-sidebar)';
+        e.target.parentNode.style.backgroundColor = 'var(--highlight-sidebar)';
         currentNavElement = e.target;
     }
     
     function changeView(e) {
-        e.preventDefault()
-        contentFilter.getContent(e.target)
-        hilightElement(e)
+        e.preventDefault();
+        contentFilter.getContent(e.target);
+        highlightElement(e);
     }
 
     function addNavigationClickEvent(element) {
-        element.addEventListener('click', changeView)
+        element.addEventListener('click', changeView);
     }
 
-    return { changeView,addNavigationClickEvent }
-
- })();
+    return { changeView, addNavigationClickEvent };
+})();
 
 export const contentFilter = (function() {
     function getContent(target) {
-        pageContent.innerHTML = ''
+        clearPageContent();
+        const contentTitle = createContentTitle(target.dataset.title);
+        const currentProject = findProject(target);
 
-        const contentTitle = document.createElement('div');
-        contentTitle.className = 'content-title'
-        contentTitle.innerHTML = `<h1 style="font-size: 50px; font-weight: bold; display: inline;">${target.dataset.title}</h1>`;
-
-        const currentProject = findProject(target)
         if (currentProject) {
-            projectContent(target, currentProject, contentTitle);
+            displayProjectContent(target, currentProject, contentTitle);
         } else {
-            pageContent.append(contentTitle)
-            inboxContent(target)
+            displayInboxContent(target, contentTitle);
         }
     }
 
-    function inboxContent(target) {
+    function clearPageContent() {
+        pageContent.innerHTML = '';
+    }
+
+    function createContentTitle(title) {
+        const contentTitle = document.createElement('div');
+        contentTitle.className = 'content-title';
+        contentTitle.innerHTML = `<h1>${title}</h1>`;
+        return contentTitle;
+    }
+
+    function displayProjectContent(target, project, contentTitle) {
+        contentTitle.append(createAddTaskButton());
+        pageContent.append(contentTitle);
+        displayTasks(projects.getAllTasks(project.id));
+    }
+
+    function displayInboxContent(target, contentTitle) {
+        pageContent.append(contentTitle);
         if (target.dataset.category === 'all') {
-            
+
         } else if (target.dataset.category === 'today') {
 
         } else if (target.dataset.category === 'upcoming') {
@@ -55,33 +67,22 @@ export const contentFilter = (function() {
         }
     }
 
-    function projectContent(target, project, contentTitle) {
-        contentTitle.append(addTaskButton(project))
-        pageContent.append(contentTitle)
-        const tasks = projects.getAllTasks(project.id);
-        pageContent.append(getTasks(tasks))
+    function createAddTaskButton() {
+        const addTaskButton = document.createElement('button');
+        addTaskButton.id = 'add-task';
+        addTaskButton.textContent = 'Add Task';
+        addTaskButton.addEventListener('click', addTaskModal.openModal);
+        return addTaskButton;
     }
 
-    function addTaskButton(project) {
-        const addTask = document.createElement('button')
-        addTask.id = 'add-task'
-        addTask.innerHTML = 'Add Task'
-        addTask.addEventListener('click', addTaskModal.openModal)
-        return addTask
+    function displayTasks(tasks) {
+        const tasksContainer = document.createElement('div');
+        tasksContainer.className = 'tasks-container';
+        tasks.forEach(task => tasksContainer.append(buildTaskCard(task)));
+        pageContent.append(tasksContainer);
     }
 
-    function getTasks(tasks) {
-        const tasksContainer = document.createElement('div')
-        tasksContainer.className = 'tasks-container'
-
-        tasks.forEach(task => {
-          tasksContainer.append(buildTask(task))
-        });
-
-        return (tasksContainer)
-      }
-
-      function buildTask(task, project = null) {
+    function buildTaskCard(task, project = null) {
         // Helper function to create and append elements
         function createElement(type, className, content, parent) {
             const element = document.createElement(type);
@@ -125,26 +126,23 @@ export const contentFilter = (function() {
         return card;
     }
 
-      function completeTask(e) {
-        tasks.markComplete(e.target.dataset.taskId)
-        getContent(currentNavElement)
-      }
+    function completeTask(e) {
+        tasks.markComplete(e.target.dataset.taskId);
+        getContent(currentNavElement);
+    }
 
-      function deleteTask(e) {
+    function deleteTask(e) {
         let tasks = JSON.parse(localStorage.getItem('tasks'))
         const taskId = e.target.dataset.taskId
         delete tasks[taskId]
         localStorage.setItem('tasks', JSON.stringify(tasks))
         getContent(currentNavElement)
-      }
+    }
 
-      function findProject(target) {
-        const targetId = target.dataset.projectId
-        if (targetId) {
-            const projectsList = JSON.parse(localStorage.getItem('projects'))
-            return projectsList[targetId]
-        }
-      }
+    function findProject(target) {
+        const targetId = target.dataset.projectId;
+        return targetId ? projects.getProjectById(targetId) : null;
+    }
 
-      return { getContent }
- })();
+    return { getContent };
+})();

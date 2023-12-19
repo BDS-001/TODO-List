@@ -44,13 +44,11 @@ export const projects = (function() {
       return task;
   }
 
-  function markTaskCompleted(taskId) {
-      const task = findTaskById(taskId);
-      if (task) {
-      task.markComplete(taskId);
-      return true; // Task marked as completed successfully
-      }
-      return false; // Task not found
+  function getProjectById(targetId) {
+    if (targetId) {
+        const projectsList = JSON.parse(localStorage.getItem('projects'))
+        return projectsList[targetId]
+    }
   }
   
   function findTaskById(taskId) {
@@ -75,7 +73,7 @@ export const projects = (function() {
     return tasksList.filter(task => task.project == projectId);
 }
 
-  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, addTask, getAllTasks }
+  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, addTask, getAllTasks, getProjectById }
 })();
 
 export const tasks = (function() {
@@ -109,5 +107,9 @@ export const tasks = (function() {
       return task
   }
 
-  return { markComplete, newTask }
+  function getAllTasks() {
+      return Object.values(JSON.parse(localStorage.getItem('tasks')))
+  }
+
+  return { markComplete, newTask, getAllTasks }
 })();
