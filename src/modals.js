@@ -3,76 +3,65 @@ import { projectsTab } from ".";
 import { currentNavElement, clearForm } from "./globals";
 import { contentFilter } from "./content-control";
 
-//module to control the addproject form module
+function toggleModal(displayStyle, modalId) {
+    document.getElementById("modalOverlay").style.display = displayStyle;
+    document.getElementById(modalId).style.display = displayStyle;
+}
+
+function addCloseEventListener(closeButtonClass, closeModalFunction) {
+    const closeButton = document.querySelector(closeButtonClass);
+    closeButton.addEventListener('click', closeModalFunction);
+}
+
+function addSubmitEventListener(submitButtonId, submitFunction) {
+    const submitButton = document.querySelector(submitButtonId);
+    submitButton.addEventListener('click', submitFunction);
+}
+
+// Module to control the addProject form
 export const addProjectModal = (function() {
+    const projectForm = document.getElementById('projectForm');
 
-    const projectForm = document.getElementById('projectForm')
-
-    //opens the module
     function openModal() {
-        document.getElementById("modalOverlay").style.display = "block";
-        document.getElementById("projectModal").style.display = "block";
+        toggleModal("block", "projectModal");
     }
-    
-    //closes the module
+
     function closeModal() {
-        document.getElementById("modalOverlay").style.display = "none";
-        document.getElementById("projectModal").style.display = "none";
-        clearForm(projectForm)
+        toggleModal("none", "projectModal");
+        clearForm(projectForm);
     }
-    
-    //project submition, save projec tinto local storage and close modal
+
     function submitProject() {
         let projectName = document.getElementById("projectName").value;
         let desc = document.getElementById("projectDescription").value;
-        
+    
         const newProject = projects.newProject(projectName, desc) 
         projectsTab.buildProject(newProject)
         closeModal();
     }
 
-    //event listener for modal close button
-    function closeModalEventListener() {
-        const closeButton = document.querySelector('.project-close-btn')
-        closeButton.addEventListener('click', closeModal)
-    }
-
-    //event listener for the submut button on project modal
-    function submitProjectEventListener() {
-        const submitProjectButton = document.querySelector('#submit-project')
-        submitProjectButton.addEventListener('click', submitProject)
-    }
-
     function setup() {
-        closeModalEventListener()
-        submitProjectEventListener()
-        clearForm(projectForm)
+        addCloseEventListener('.project-close-btn', closeModal);
+        addSubmitEventListener('#submit-project', submitProject);
+        clearForm(projectForm);
     }
 
-    return { openModal, setup}
+    return { openModal, setup };
 })();
 
-//module that controls the addTaskModal
+// Module that controls the addTaskModal
 export const addTaskModal = (function() {
-
     const taskForm = document.getElementById('taskForm');
 
-    //open the task modal
     function openModal() {
-        document.getElementById("modalOverlay").style.display = "block";
-        document.getElementById("taskModal").style.display = "block";
+        toggleModal("block", "taskModal");
     }
 
-
-    //close the task modal
     function closeTaskModal() {
-        document.getElementById("modalOverlay").style.display = "none";
-        document.getElementById("taskModal").style.display = "none";
-        clearForm(taskForm)
+        toggleModal("none", "taskModal");
+        clearForm(taskForm);
     }
-    
 
-    //submit new task form, save new task to local storage
     function submitTaskForm() {
         const taskName = document.getElementById("taskName").value;
         const taskDescription = document.getElementById("taskDescription").value;
@@ -84,24 +73,11 @@ export const addTaskModal = (function() {
         closeTaskModal();
     }
 
-
-    //eventlisteener for modal close button
-    function closeModalEventListener() {
-        const closeButton = document.querySelector('.task-close-btn')
-        closeButton.addEventListener('click', closeTaskModal)
-    }
-
-    //event listener for the submit button
-    function submitTaskEventListener() {
-        const submitTaskButton = document.querySelector('#submit-task')
-        submitTaskButton.addEventListener('click', submitTaskForm)
-    }
-
     function setup() {
-        closeModalEventListener()
-        submitTaskEventListener()
-        clearForm(taskForm)
+        addCloseEventListener('.task-close-btn', closeTaskModal);
+        addSubmitEventListener('#submit-task', submitTaskForm);
+        clearForm(taskForm);
     }
 
-    return { setup, openModal }
+    return { setup, openModal };
 })();
