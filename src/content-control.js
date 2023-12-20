@@ -52,12 +52,19 @@ export const contentFilter = (function() {
         displayTasks(projects.getAllTasks(project.id));
     }
 
+    function inboxToday() {
+        const today = formatTimestamp(Date.now())
+        const filterdTasks = tasks.getAllTasks().filter(task => task.dueDate === today)
+        displayTasks(filterdTasks)
+
+    }
+
     function displayInboxContent(target, contentTitle) {
         pageContent.append(contentTitle);
         if (target.dataset.category === 'all') {
 
         } else if (target.dataset.category === 'today') {
-
+            inboxToday()
         } else if (target.dataset.category === 'upcoming') {
             
         } else if (target.dataset.category === 'anytime') {

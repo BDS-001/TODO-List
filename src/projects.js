@@ -51,11 +51,6 @@ export const projects = (function() {
     }
   }
   
-  function findTaskById(taskId) {
-      const tasksList = JSON.parse(localStorage.getItem('tasks'))
-      return tasksList[taskId];
-  }
-  
   function getInProgressTasks(projectId) {
       const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
       if (tasksList) {
@@ -73,7 +68,7 @@ export const projects = (function() {
     return tasksList.filter(task => task.project == projectId);
 }
 
-  return { newProject, findTaskById, getCompletedTasks, getInProgressTasks, addTask, getAllTasks, getProjectById }
+  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllTasks, getProjectById }
 })();
 
 export const tasks = (function() {
@@ -111,5 +106,10 @@ export const tasks = (function() {
       return Object.values(JSON.parse(localStorage.getItem('tasks')))
   }
 
-  return { markComplete, newTask, getAllTasks }
+  function findTaskById(taskId) {
+    const tasksList = JSON.parse(localStorage.getItem('tasks'))
+    return tasksList[taskId];
+}
+
+  return { markComplete, newTask, getAllTasks, findTaskById}
 })();
