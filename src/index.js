@@ -1,6 +1,7 @@
 import { contentFilter, navigation } from "./content-control";
 import { projectsContainer } from "./globals";
 import { addProjectModal, addTaskModal } from "./modals.js" 
+import { projects } from "./projects.js";
 
 
 
@@ -32,7 +33,7 @@ export const projectsTab = (function() {
 
     //loads all the projects into the navbar
     function loadProjects() {
-        const projectsList = Object.values(JSON.parse(localStorage.getItem('projects')))
+        const projectsList = Object.values(projects.getProjects())
         projectsList.forEach(proj => {
             buildProject(proj)
         });

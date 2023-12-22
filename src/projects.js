@@ -77,7 +77,11 @@ export const projects = (function() {
 
   }
 
-  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllTasks, getProjectById, deleteProject }
+  function getProjects() {
+    return JSON.parse(localStorage.getItem('projects'))
+  }
+
+  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllTasks, getProjectById, deleteProject, getProjects }
 })();
 
 export const tasks = (function() {
