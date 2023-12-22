@@ -3,23 +3,23 @@ import { formatTimestamp, pageContent, currentNavElement } from "./globals";
 import { addTaskModal } from "./modals";
 
 export const navigation = (function() {
-    function highlightElement(e) {
+    function highlightElement(target) {
         if (currentNavElement) currentNavElement.parentNode.style.backgroundColor = 'inherit';
-        e.target.parentNode.style.backgroundColor = 'var(--highlight-sidebar)';
-        currentNavElement = e.target;
+        target.parentNode.style.backgroundColor = 'var(--highlight-sidebar)';
+        currentNavElement = target;
     }
     
     function changeView(e) {
         e.preventDefault();
         contentFilter.getContent(e.target);
-        highlightElement(e);
+        highlightElement(e.target);
     }
 
     function addNavigationClickEvent(element) {
         element.addEventListener('click', changeView);
     }
 
-    return { changeView, addNavigationClickEvent };
+    return { changeView, addNavigationClickEvent, highlightElement };
 })();
 
 export const contentFilter = (function() {

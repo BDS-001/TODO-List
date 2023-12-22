@@ -1,4 +1,4 @@
-import { navigation } from "./content-control";
+import { contentFilter, navigation } from "./content-control";
 import { projectsContainer } from "./globals";
 import { addProjectModal, addTaskModal } from "./modals.js" 
 
@@ -73,5 +73,9 @@ const initialPageLoad = (function() {
     projectsTab.setup()
     addProjectModal.setup()
     addTaskModal.setup()
+
+    const startPage = document.getElementById("startpage");
+    navigation.highlightElement(startPage)
+    contentFilter.getContent(startPage)
 })();
 
