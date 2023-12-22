@@ -17,6 +17,23 @@ export function formatTimestamp(timestamp) {
   return formattedDate;
 }
 
+export function differenceInDays(date1, date2) {
+  // Parse the dates
+  const parsedDate1 = new Date(date1);
+  const parsedDate2 = new Date(date2);
+
+  // Calculate the difference in time (in milliseconds)
+  const timeDiff = parsedDate2.getTime() - parsedDate1.getTime()
+
+  // Convert the time difference from milliseconds to days
+  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  console.log(`Difference in days between ${date1} and ${date2}: ${diffDays}`);
+  console.log(diffDays <= 7)
+
+  return diffDays;
+}
+
 export function clearForm(form) {
   form.reset();
 }

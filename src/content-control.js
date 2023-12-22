@@ -1,5 +1,5 @@
 import { projects, tasks } from "./projects";
-import { formatTimestamp, pageContent, currentNavElement } from "./globals";
+import { formatTimestamp, pageContent, currentNavElement, differenceInDays } from "./globals";
 import { addTaskModal } from "./modals";
 
 export const navigation = (function() {
@@ -59,6 +59,12 @@ export const contentFilter = (function() {
 
     }
 
+    function inboxUpcoming() {
+        const today = formatTimestamp(Date.now())
+        const filteredTasks = tasks.getAllTasks().filter(task => differenceInDays(today, task.dueDate) <= 7 && differenceInDays(today, task.dueDate) >= 0)
+        displayTasks(filteredTasks)
+    }
+
     function displayInboxContent(target, contentTitle) {
         pageContent.append(contentTitle);
         if (target.dataset.category === 'all') {
@@ -66,7 +72,7 @@ export const contentFilter = (function() {
         } else if (target.dataset.category === 'today') {
             inboxToday()
         } else if (target.dataset.category === 'upcoming') {
-            
+            inboxUpcoming()
         } else if (target.dataset.category === 'anytime') {
             
         } else if (target.dataset.category === 'archive') {
