@@ -1,3 +1,5 @@
+import { formatTimestamp } from "./globals";
+
 export function generateUniqueId() {
     // Generate a random number and convert it to a hexadecimal string
     const randomPart = Math.floor(Math.random() * Date.now()).toString(16);
@@ -66,9 +68,13 @@ export const projects = (function() {
   function getAllTasks(projectId) {
     const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
     return tasksList.filter(task => task.project == projectId);
-}
+  }
 
-  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllTasks, getProjectById }
+  function deleteProject() {
+
+  }
+
+  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllTasks, getProjectById, deleteProject }
 })();
 
 export const tasks = (function() {
@@ -89,7 +95,7 @@ export const tasks = (function() {
       'id': generateUniqueId(),
       'title': title,
       'desc': desc,
-      'date': Date.now(),
+      'date': formatTimestamp(Date.now()),
       'project': projectId,
       'completed': false,
       'dueDate': dueDate,
@@ -109,7 +115,13 @@ export const tasks = (function() {
   function findTaskById(taskId) {
     const tasksList = JSON.parse(localStorage.getItem('tasks'))
     return tasksList[taskId];
-}
+  }
 
-  return { markComplete, newTask, getAllTasks, findTaskById}
+  function deleteTask(taskId) {
+    let tasks = JSON.parse(localStorage.getItem('tasks'))
+    delete tasks[taskId]
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }
+
+  return { markComplete, newTask, getAllTasks, findTaskById, deleteTask}
 })();

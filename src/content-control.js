@@ -111,7 +111,7 @@ export const contentFilter = (function() {
     
         // Create and append meta info (date and status) in the top corners
         const metaInfoElement = createElement("div", "meta-info", "", card);
-        createElement("p", "date", `Date: ${formatTimestamp(task.date)}`, metaInfoElement);
+        createElement("p", "date", `Date: ${task.date}`, metaInfoElement);
         createElement("p", "status", `${task.completed ? 'Completed' : 'Incomplete'}`, metaInfoElement);
     
         // Add project title if provided
@@ -145,10 +145,8 @@ export const contentFilter = (function() {
     }
 
     function deleteTask(e) {
-        let tasks = JSON.parse(localStorage.getItem('tasks'))
         const taskId = e.target.dataset.taskId
-        delete tasks[taskId]
-        localStorage.setItem('tasks', JSON.stringify(tasks))
+        tasks.deleteTask(taskId)
         getContent(currentNavElement)
     }
 

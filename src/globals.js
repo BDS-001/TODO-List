@@ -28,9 +28,6 @@ export function differenceInDays(date1, date2) {
   // Convert the time difference from milliseconds to days
   const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-  console.log(`Difference in days between ${date1} and ${date2}: ${diffDays}`);
-  console.log(diffDays <= 7)
-
   return diffDays;
 }
 

@@ -50,7 +50,7 @@ body {
 
 .sidebar-element {
     display: grid;
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 40px 5fr 1fr;
 
     font-size: 25px;
     text-shadow: 0 0 0px #000;
@@ -196,4 +196,18 @@ button {
 #submit-project {
   width: 100%;
   background-color: var(--dark-page-accent-color);
+}
+
+.delete-project-btn {
+  background-color: transparent;
+  color: whitesmoke; 
+  border: none; 
+  cursor: pointer; 
+  font-size: medium;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
 }

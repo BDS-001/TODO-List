@@ -52,9 +52,19 @@ export const projectsTab = (function() {
         navigation.addNavigationClickEvent(projectName)
         projectName.dataset.title = project.name
         projectName.dataset.projectId = project.id
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-project-btn';
+        deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+        deleteButton.dataset.projectId = project.id;
+        deleteButton.onclick = function() {
+            // Add your delete logic here
+            console.log('delete project')
+        };
     
         container.append(icon)
         container.append(projectName)
+        container.append(deleteButton)
         projectsContainer.append(container)
     }
 
