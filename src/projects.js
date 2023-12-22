@@ -70,7 +70,10 @@ export const projects = (function() {
     return tasksList.filter(task => task.project == projectId);
   }
 
-  function deleteProject() {
+  function deleteProject(projectId) {
+    const projectsList = JSON.parse(localStorage.getItem('projects'))
+    const tasksList = tasks.getAllTasks()
+
 
   }
 
@@ -80,14 +83,13 @@ export const projects = (function() {
 export const tasks = (function() {
   if (!localStorage.getItem('tasks')) {
       let newTasksList = {}
-      newTasksList = JSON.stringify(newTasksList)
-      localStorage.setItem('tasks', newTasksList)
+      updateTasks(newTasksList)
   }
 
   function markComplete(taskId) {
-      const taskList = JSON.parse(localStorage.getItem('tasks'))
+      const taskList = getTasks()
       taskList[taskId].completed = true
-      localStorage.setItem('tasks', JSON.stringify(taskList))
+      updateTasks(taskList)
   }
 
   function newTask(title, desc, projectId, dueDate, priorityLevel) {
@@ -101,26 +103,33 @@ export const tasks = (function() {
       'dueDate': dueDate,
       'priorityLevel': priorityLevel
   }
-      const taskList = JSON.parse(localStorage.getItem('tasks'))
+      const taskList = getTasks()
       taskList[task.id] = task
-      localStorage.setItem('tasks', JSON.stringify(taskList))
+      updateTasks(taskList)
 
       return task
   }
 
   function getAllTasks() {
-      return Object.values(JSON.parse(localStorage.getItem('tasks')))
+      return Object.values(getTasks())
   }
 
   function findTaskById(taskId) {
-    const tasksList = JSON.parse(localStorage.getItem('tasks'))
+    const tasksList = getTasks()
     return tasksList[taskId];
   }
 
   function deleteTask(taskId) {
-    let tasks = JSON.parse(localStorage.getItem('tasks'))
-    delete tasks[taskId]
-    localStorage.setItem('tasks', JSON.stringify(tasks))
+    let taskList = getTasks()
+    delete taskList[taskId]
+    updateTasks(taskList)
+  }
+
+  function getTasks() {
+    return JSON.parse(localStorage.getItem('tasks'))
+  }
+  function updateTasks(taskList) {
+    localStorage.setItem('tasks', JSON.stringify(taskList))
   }
 
   return { markComplete, newTask, getAllTasks, findTaskById, deleteTask}
