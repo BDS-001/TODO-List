@@ -49,19 +49,19 @@ export const contentFilter = (function() {
     function displayProjectContent(target, project, contentTitle) {
         contentTitle.append(createAddTaskButton());
         pageContent.append(contentTitle);
-        displayTasks(projects.getAllTasks(project.id));
+        displayTasks(projects.getAllProjectTasks(project.id));
     }
 
     function inboxToday() {
         const today = formatTimestamp(Date.now())
-        const filterdTasks = tasks.getAllTasks().filter(task => task.dueDate === today)
+        const filterdTasks = tasks.getTaskList().filter(task => task.dueDate === today)
         displayTasks(filterdTasks)
 
     }
 
     function inboxUpcoming() {
         const today = formatTimestamp(Date.now())
-        const filteredTasks = tasks.getAllTasks().filter(task => differenceInDays(today, task.dueDate) <= 7 && differenceInDays(today, task.dueDate) >= 0)
+        const filteredTasks = tasks.getTaskList().filter(task => differenceInDays(today, task.dueDate) <= 7 && differenceInDays(today, task.dueDate) >= 0)
         displayTasks(filteredTasks)
     }
 

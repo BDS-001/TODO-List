@@ -56,11 +56,19 @@ export const projectsTab = (function() {
 
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-project-btn';
-        deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-        deleteButton.dataset.projectId = project.id;
-        deleteButton.onclick = function() {
+
+        const deleteIcon = document.createElement('i');
+        deleteIcon.className = 'bi bi-trash';
+        deleteIcon.dataset.projectId = project.id;
+
+        deleteButton.appendChild(deleteIcon);
+        deleteButton.onclick = function(e) {
             // Add your delete logic here
             console.log('delete project')
+            const projectId = e.target.dataset.projectId
+            projects.deleteProject(projectId)
+            window.location.reload();
+
         };
     
         container.append(icon)

@@ -16,9 +16,8 @@ export function generateUniqueId() {
 //project functions
 export const projects = (function() {
   if (!localStorage.getItem('projects')) {
-      let newProjectsList = {}
-      newProjectsList = JSON.stringify(newProjectsList)
-      localStorage.setItem('projects', newProjectsList)
+      const newProjectsList = {}
+      updateProjects(JSON.stringify(newProjectsList))
   }
 
   function newProject(name, desc) {
@@ -31,13 +30,13 @@ export const projects = (function() {
 
       const projectList = JSON.parse(localStorage.getItem('projects'))
       projectList[project.id] = project
-      localStorage.setItem('projects', JSON.stringify(projectList))
+      updateProjects(projectList)
 
       return project
   }
 
   function addTask(projectId, title, desc, dueDate, priorityLevel) {
-      const projectList = JSON.parse(localStorage.getItem('projects'))
+      const projectList = getProjects()
 
       const taskId = generateUniqueId();
       const task = tasks.newTask(taskId, title, desc, projectId, dueDate, priorityLevel);
@@ -48,31 +47,39 @@ export const projects = (function() {
 
   function getProjectById(targetId) {
     if (targetId) {
-        const projectsList = JSON.parse(localStorage.getItem('projects'))
+        const projectsList = getProjects()
         return projectsList[targetId]
     }
   }
   
   function getInProgressTasks(projectId) {
-      const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
+      const tasksList = tasks.getTaskList()
       if (tasksList) {
         return tasksList.filter(task => !task.completed && task.project == projectId);
       }
   }
   
   function getCompletedTasks(projectId) {
-      const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
+      const tasksList = tasks.getTaskList()
       return tasksList.filter(task => task.completed && task.project == projectId);
   }
 
-  function getAllTasks(projectId) {
-    const tasksList = Object.values(JSON.parse(localStorage.getItem('tasks')))
+  function getAllProjectTasks(projectId) {
+    const tasksList = tasks.getTaskList()
     return tasksList.filter(task => task.project == projectId);
   }
 
   function deleteProject(projectId) {
-    const projectsList = JSON.parse(localStorage.getItem('projects'))
-    const tasksList = tasks.getAllTasks()
+    const projectsList = getProjects()
+    const taskList = tasks.getTaskList()
+
+    taskList.forEach(task => {
+      if (task.project === projectId) {
+        tasks.deleteTask(task.id)
+      }
+    })
+    delete projectsList[projectId]
+    updateProjects(projectsList)
 
 
   }
@@ -81,7 +88,11 @@ export const projects = (function() {
     return JSON.parse(localStorage.getItem('projects'))
   }
 
-  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllTasks, getProjectById, deleteProject, getProjects }
+  function updateProjects(projectList) {
+    localStorage.setItem('projects', JSON.stringify(projectList))
+  }
+
+  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllProjectTasks, getProjectById, deleteProject, getProjects }
 })();
 
 export const tasks = (function() {
@@ -114,7 +125,7 @@ export const tasks = (function() {
       return task
   }
 
-  function getAllTasks() {
+  function getTaskList() {
       return Object.values(getTasks())
   }
 
@@ -136,5 +147,5 @@ export const tasks = (function() {
     localStorage.setItem('tasks', JSON.stringify(taskList))
   }
 
-  return { markComplete, newTask, getAllTasks, findTaskById, deleteTask}
+  return { markComplete, newTask, getTaskList, findTaskById, deleteTask}
 })();
