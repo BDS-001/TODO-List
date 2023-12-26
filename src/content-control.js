@@ -65,10 +65,23 @@ export const contentFilter = (function() {
         displayTasks(filteredTasks)
     }
 
+    function inboxAll() {
+        const projectsList = projects.getProjects()
+        const projectKeys = Object.keys(projects.getProjects())
+        projectKeys.forEach(function(key){
+            const title = document.createElement('h2')
+            title.innerHTML = `${projectsList[key].name}`
+            pageContent.appendChild(title)
+
+            const projectTasks = projects.getAllProjectTasks(key)
+            displayTasks(projectTasks)
+        })
+    }
+
     function displayInboxContent(target, contentTitle) {
         pageContent.append(contentTitle);
         if (target.dataset.category === 'all') {
-
+            inboxAll()
         } else if (target.dataset.category === 'today') {
             inboxToday()
         } else if (target.dataset.category === 'upcoming') {
