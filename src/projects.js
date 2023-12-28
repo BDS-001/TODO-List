@@ -147,5 +147,5 @@ export const tasks = (function() {
     localStorage.setItem('tasks', JSON.stringify(taskList))
   }
 
-  return { markComplete, newTask, getTaskList, findTaskById, deleteTask}
+  return { markComplete, newTask, getTaskList, findTaskById, deleteTask, getTasks, updateTasks}
 })();

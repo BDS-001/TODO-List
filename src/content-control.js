@@ -136,7 +136,6 @@ export const contentFilter = (function() {
         createElement("h3", "title", task.title, card);
         createElement("p", "description", task.desc, card);
         createElement("p", "", `Due Date: ${task.dueDate}`, card);
-        createElement("p", "", `Priority Level: ${task.priorityLevel}`, card);
     
         // Create and append buttons if the task is not completed
         if (!task.completed) {
@@ -147,6 +146,35 @@ export const contentFilter = (function() {
             const completeButton = createElement("button", "btn complete-btn", "Complete Task", card);
             completeButton.dataset.taskId = task.id;
             completeButton.addEventListener('click', completeTask);
+
+            // Create and append priority level dropdown
+            const priorityElement = createElement("div", "", "", card);
+            createElement("span", "", "Priority Level: ", priorityElement);
+
+            const prioritySelect = document.createElement("select");
+            prioritySelect.className = "priority-select";
+            prioritySelect.dataset.taskId = task.id;
+
+            ["low", "medium", "high"].forEach(level => {
+                const option = document.createElement("option");
+                option.value = level;
+                option.textContent = level;
+                option.selected = task.priorityLevel === level;
+                prioritySelect.appendChild(option);
+            });
+            priorityElement.appendChild(prioritySelect);
+
+            // Event listener for priority level change
+            prioritySelect.addEventListener('change', (e) => {
+                const taskId = e.target.dataset.taskId;
+                const newPriority = e.target.value;
+                
+                const taskList = tasks.getTasks()
+                taskList[taskId].priorityLevel = newPriority
+                tasks.updateTasks(taskList)
+            });
+        } else {
+            createElement("p", "", `Priority Level: ${task.priorityLevel}`, card);
         }
     
         return card;
