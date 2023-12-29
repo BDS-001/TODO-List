@@ -55,14 +55,14 @@ export const contentFilter = (function() {
     function inboxToday() {
         const today = formatTimestamp(Date.now())
         const filterdTasks = tasks.getTaskList().filter(task => task.dueDate === today)
-        displayTasks(filterdTasks)
+        displayTasks(filterdTasks, true)
 
     }
 
     function inboxUpcoming() {
         const today = formatTimestamp(Date.now())
-        const filteredTasks = tasks.getTaskList().filter(task => differenceInDays(today, task.dueDate) <= 7 && differenceInDays(today, task.dueDate) >= 0)
-        displayTasks(filteredTasks)
+        const filteredTasks = tasks.getTaskList().filter(task => differenceInDays(today, task.dueDate) <= 7 && differenceInDays(today, task.dueDate) >= 0  && !task.completed)
+        displayTasks(filteredTasks, true)
     }
 
     function inboxAll() {
@@ -78,6 +78,10 @@ export const contentFilter = (function() {
         })
     }
 
+    function inboxInprogress() {
+        //test
+    }
+
     function displayInboxContent(target, contentTitle) {
         pageContent.append(contentTitle);
         if (target.dataset.category === 'all') {
@@ -86,10 +90,8 @@ export const contentFilter = (function() {
             inboxToday()
         } else if (target.dataset.category === 'upcoming') {
             inboxUpcoming()
-        } else if (target.dataset.category === 'anytime') {
-            
-        } else if (target.dataset.category === 'archive') {
-            
+        } else if (target.dataset.category === 'Inprogress') {
+            inboxInprogress()
         }
     }
 
@@ -101,10 +103,16 @@ export const contentFilter = (function() {
         return addTaskButton;
     }
 
-    function displayTasks(tasks) {
+    function displayTasks(tasks, projectTitle = false) {
         const tasksContainer = document.createElement('div');
         tasksContainer.className = 'tasks-container';
-        tasks.forEach(task => tasksContainer.append(buildTaskCard(task)));
+
+        if (projectTitle) {
+            const projectList = projects.getProjects()
+            tasks.forEach(task => tasksContainer.append(buildTaskCard(task, projectList[task.project])));
+        } else {
+            tasks.forEach(task => tasksContainer.append(buildTaskCard(task)));
+        }
         pageContent.append(tasksContainer);
     }
 
@@ -129,7 +137,7 @@ export const contentFilter = (function() {
     
         // Add project title if provided
         if (project) {
-            createElement("h4", "project-title", `Project: ${project.title}`, card);
+            createElement("h4", "project-title", `Project: ${project.name}`, card);
         }
     
         // Create and append other task details
