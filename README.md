@@ -1,7 +1,5 @@
 # TODO-List
 
-# To-Do App
-
 ## Introduction
 This To-Do App is a comprehensive task management system designed to help users organize their tasks within projects efficiently. It allows for the creation of projects, addition of tasks to these projects, and offers various views for tracking tasks based on their urgency and project association.
 
