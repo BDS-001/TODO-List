@@ -80,7 +80,6 @@ export const contentFilter = (function() {
 
     function inboxInprogress() {
         const filterdTasks = tasks.getTaskList().filter(task => !task.completed)
-        console.log(filterdTasks)
         displayTasks(filterdTasks, true)
     }
 

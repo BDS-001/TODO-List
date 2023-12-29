@@ -63,8 +63,6 @@ export const projectsTab = (function() {
 
         deleteButton.appendChild(deleteIcon);
         deleteButton.onclick = function(e) {
-            // Add your delete logic here
-            console.log('delete project')
             const projectId = e.target.dataset.projectId
             projects.deleteProject(projectId)
             window.location.reload();

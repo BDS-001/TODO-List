@@ -67,7 +67,6 @@ export const addTaskModal = (function() {
         const taskDescription = document.getElementById("taskDescription").value;
         const dueDate = document.getElementById('due-date').value
         const priorityLevel = document.getElementById('priority-level').value
-        console.log('here')
         const newTask = tasks.newTask(taskName, taskDescription, currentNavElement.dataset.projectId, dueDate, priorityLevel)
         contentFilter.getContent(currentNavElement)
         closeTaskModal();
