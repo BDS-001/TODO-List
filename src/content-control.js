@@ -79,7 +79,9 @@ export const contentFilter = (function() {
     }
 
     function inboxInprogress() {
-        //test
+        const filterdTasks = tasks.getTaskList().filter(task => !task.completed)
+        console.log(filterdTasks)
+        displayTasks(filterdTasks, true)
     }
 
     function displayInboxContent(target, contentTitle) {
@@ -90,7 +92,7 @@ export const contentFilter = (function() {
             inboxToday()
         } else if (target.dataset.category === 'upcoming') {
             inboxUpcoming()
-        } else if (target.dataset.category === 'Inprogress') {
+        } else if (target.dataset.category === 'inprogress') {
             inboxInprogress()
         }
     }
