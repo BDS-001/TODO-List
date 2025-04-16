@@ -16,8 +16,8 @@ export function generateUniqueId() {
 //project functions
 export const projects = (function() {
   if (!localStorage.getItem('projects')) {
-      const newProjectsList = {}
-      updateProjects(JSON.stringify(newProjectsList))
+      const newProjectsList = {};
+      updateProjects(newProjectsList);
   }
 
   function newProject(name, desc) {
@@ -28,83 +28,88 @@ export const projects = (function() {
         'tasks': []
       }
 
-      const projectList = JSON.parse(localStorage.getItem('projects'))
-      projectList[project.id] = project
-      updateProjects(projectList)
+      const projectList = getProjects() || {};
+      projectList[project.id] = project;
+      updateProjects(projectList);
 
-      return project
+      return project;
   }
 
   function addTask(projectId, title, desc, dueDate, priorityLevel) {
-      const projectList = getProjects()
+      const projectList = getProjects();
 
       const taskId = generateUniqueId();
       const task = tasks.newTask(taskId, title, desc, projectId, dueDate, priorityLevel);
       projectList[projectId].tasks.push(task.id);
-      tasks.newTask(task)
+      tasks.newTask(task);
       return task;
   }
 
   function getProjectById(targetId) {
     if (targetId) {
-        const projectsList = getProjects()
-        return projectsList[targetId]
+        const projectsList = getProjects();
+        return projectsList[targetId];
     }
   }
   
   function getInProgressTasks(projectId) {
-      const tasksList = tasks.getTaskList()
+      const tasksList = tasks.getTaskList();
       if (tasksList) {
         return tasksList.filter(task => !task.completed && task.project == projectId);
       }
   }
   
   function getCompletedTasks(projectId) {
-      const tasksList = tasks.getTaskList()
+      const tasksList = tasks.getTaskList();
       return tasksList.filter(task => task.completed && task.project == projectId);
   }
 
   function getAllProjectTasks(projectId) {
-    const tasksList = tasks.getTaskList()
+    const tasksList = tasks.getTaskList();
     return tasksList.filter(task => task.project == projectId);
   }
 
   function deleteProject(projectId) {
-    const projectsList = getProjects()
-    const taskList = tasks.getTaskList()
+    const projectsList = getProjects();
+    const taskList = tasks.getTaskList();
 
     taskList.forEach(task => {
       if (task.project === projectId) {
-        tasks.deleteTask(task.id)
+        tasks.deleteTask(task.id);
       }
-    })
-    delete projectsList[projectId]
-    updateProjects(projectsList)
-
-
+    });
+    delete projectsList[projectId];
+    updateProjects(projectsList);
   }
 
   function getProjects() {
-    return JSON.parse(localStorage.getItem('projects'))
+    try {
+      return JSON.parse(localStorage.getItem('projects')) || {};
+    } catch (e) {
+      console.error("Error parsing projects from localStorage:", e);
+      return {};
+    }
   }
 
   function updateProjects(projectList) {
-    localStorage.setItem('projects', JSON.stringify(projectList))
+    localStorage.setItem('projects', JSON.stringify(projectList));
   }
 
-  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllProjectTasks, getProjectById, deleteProject, getProjects }
+  return { newProject, getCompletedTasks, getInProgressTasks, addTask, getAllProjectTasks, getProjectById, deleteProject, getProjects };
 })();
 
 export const tasks = (function() {
   if (!localStorage.getItem('tasks')) {
-      let newTasksList = {}
-      updateTasks(newTasksList)
+      let newTasksList = {};
+      updateTasks(newTasksList);
   }
 
   function markComplete(taskId) {
-      const taskList = getTasks()
-      taskList[taskId].completed = true
-      updateTasks(taskList)
+      const taskList = getTasks();
+      if (taskList[taskId]) {
+        taskList[taskId].completed = true;
+        updateTasks(taskList);
+      }
   }
 
   function newTask(title, desc, projectId, dueDate, priorityLevel) {
@@ -117,35 +122,42 @@ export const tasks = (function() {
       'completed': false,
       'dueDate': dueDate,
       'priorityLevel': priorityLevel
-  }
-      const taskList = getTasks()
-      taskList[task.id] = task
-      updateTasks(taskList)
+    };
+    
+    const taskList = getTasks() || {};
+    taskList[task.id] = task;
+    updateTasks(taskList);
 
-      return task
+    return task;
   }
 
   function getTaskList() {
-      return Object.values(getTasks())
+      return Object.values(getTasks() || {});
   }
 
   function findTaskById(taskId) {
-    const tasksList = getTasks()
+    const tasksList = getTasks();
     return tasksList[taskId];
   }
 
   function deleteTask(taskId) {
-    let taskList = getTasks()
-    delete taskList[taskId]
-    updateTasks(taskList)
+    let taskList = getTasks();
+    delete taskList[taskId];
+    updateTasks(taskList);
   }
 
   function getTasks() {
-    return JSON.parse(localStorage.getItem('tasks'))
+    try {
+      return JSON.parse(localStorage.getItem('tasks')) || {};
+    } catch (e) {
+      console.error("Error parsing tasks from localStorage:", e);
+      return {};
+    }
   }
+  
   function updateTasks(taskList) {
-    localStorage.setItem('tasks', JSON.stringify(taskList))
+    localStorage.setItem('tasks', JSON.stringify(taskList));
   }
 
-  return { markComplete, newTask, getTaskList, findTaskById, deleteTask, getTasks, updateTasks}
+  return { markComplete, newTask, getTaskList, findTaskById, deleteTask, getTasks, updateTasks};
 })();
