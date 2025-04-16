@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Satisfy&display=swap" rel="stylesheet"> 
+
+
+</head>
+<body>
+
+    <div id="header">Todo List</div>
+    <div id="sidebar">
+        <div class="inbox">
+            <h1>Inbox</h2>
+            <div class="sidebar-element inbox-category">
+                <i class="bi bi-inbox-fill" style="color: rgb(53, 205, 255);"></i>
+                <a href="javascript:;" data-title="All" data-category="all" id="startpage">All</a>
+            </div>
+            <div class="sidebar-element inbox-category">
+                <i class="bi bi-star-fill" style="color: gold;"></i>
+                <a href="javascript:;" data-title="Today" data-category="today">Today</a>
+            </div>
+            <div class="sidebar-element inbox-category">
+                <i class="bi bi-calendar-event" style="color: green;"></i>
+                <a href="javascript:;" data-title="Upcoming" data-category="upcoming">Upcoming</a>
+            </div>
+            <div class="sidebar-element inbox-category">
+                <i class="bi bi-substack" style="color: red;"></i>
+                <a href="javascript:;" data-title="Inprogress" data-category="inprogress">Inprogress</a>
+            </div>
+        </div>
+        <div class="projects">
+            <div class="add-projects-container">
+                <h1>Projects</h2>
+                <a href="javascript:;" id="add-project">+</a>
+            </div>
+
+            <div id="modalOverlay" class="overlay">
+
+                <!-- project modal -->
+                <div id="projectModal" class="modal">
+                    <span class="project-close-btn close-btn">&#10006;</span>
+                    <h2>Enter Project Information</h2>
+                    <form id="projectForm">
+                        <label for="projectName">Project Name:</label>
+                        <input type="text" id="projectName" name="projectName"  class="modal-data" required>
+                        <br><br>
+                        <label for="projectDescription">Project Description:</label>
+                        <textarea id="projectDescription" name="projectDescription" rows="4" class="modal-data" required></textarea>
+                        <br><br>
+                        <button type="button" id="submit-project">Submit</button>
+                    </form>
+                </div>
+            
+            <!-- task modal -->
+            <div id="taskModal" class="modal">
+                <span class="task-close-btn close-btn">&#10006;</span>
+                <h2>Enter Task Information</h2>
+                <form id="taskForm">
+                    <label for="taskName">Task Name:</label>
+                    <input type="text" id="taskName" name="taskName"  class="task-modal-data" required>
+                    <br><br>
+                    <label for="taskDescription">Task Description:</label>
+                    <textarea id="taskDescription" name="taskDescription" rows="4" class="task-modal-data" required></textarea>
+                    <br><br>
+                    <label for="due-date">Enter the due date:</label>
+                    <input type="date" id="due-date" name="due-date">
+                    <br><br>
+                    <label for="priority-level">Select priority level:</label>
+                    <select id="priority-level" name="priority-level">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <br><br>
+                    <button type="button" id="submit-task">Submit</button>
+                </form>
+            </div>
+
+        </div>
+        </div>
+    </div>
+    <div id="content"></div>
+</body>
+</html>

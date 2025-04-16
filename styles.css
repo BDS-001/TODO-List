@@ -1,0 +1,216 @@
+:root {
+    font-family: 'Open Sans', sans-serif;
+    --highlight-sidebar: rgba(255, 255, 255, 0.171);
+    --page-accent-color: #004080;
+    --dark-page-accent-color: #003264;
+    --red: #9b1a0a;
+    --green: #39571c;
+    color: whitesmoke;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    grid-template-rows: 100px 1fr;
+}
+
+#header {
+    grid-row: 1 / 1;
+    grid-column: 1 / 3;
+    background-color: var(--page-accent-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 70px;
+    font-family: 'Satisfy', cursive;
+}
+
+#sidebar {
+    grid-row: 2 / 2;
+    grid-column: 1 / 1;
+    background-color: #161b22;
+    padding: 40px;
+    padding-top: 5px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#content {
+    grid-row: 2 / 2;
+    grid-column: 2 / 2;
+    background-color: #0d1117;
+    padding: 10px 100px;
+}
+
+.sidebar-element {
+    display: grid;
+    grid-template-columns: 40px 5fr 1fr;
+
+    font-size: 25px;
+    text-shadow: 0 0 0px #000;
+    border-radius: 8px;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+#sidebar a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+#add-project {
+    font-size: 50px;
+}
+
+.add-projects-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    color: black;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+button {
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-task {
+    background-color: var(--page-accent-color);
+    font-size: 16px;
+}
+
+#add-task:hover {
+    background-color: var(--dark-page-accent-color); 
+}
+
+.task-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  padding-top: 0px;
+  padding-bottom: 60px;
+  margin-bottom: 10px;
+  position: relative;
+  border-radius: 10px;
+}
+
+
+.completed {
+  background-color: var(--green);
+}
+
+.title, .description {
+  margin: 5px 0;
+}
+
+.title {
+    text-align: center;
+  }
+
+.meta-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    margin-top: 0;
+}
+
+.date {
+  float: left;
+}
+
+.status {
+  float: right;
+}
+
+.content-title {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+.remove-btn {
+    background-color: var(--red);
+    color: white;
+    left: 10px;
+  }
+
+.complete-btn {
+    background-color: var(--green);
+    color: white;
+    right: 10px;
+  }
+
+.btn {
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+}
+
+.tasks-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    gap: 20px;
+  }
+
+#submit-task,
+#submit-project {
+  width: 100%;
+  background-color: var(--dark-page-accent-color);
+}
+
+.delete-project-btn {
+  background-color: transparent;
+  color: whitesmoke; 
+  border: none; 
+  cursor: pointer; 
+  font-size: medium;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
